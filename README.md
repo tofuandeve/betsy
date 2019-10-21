@@ -3,7 +3,7 @@
 ## At a Glance
 
 - Group, [stage 3](https://github.com/Ada-Developers-Academy/pedagogy/blob/master/rule-of-three.md) project
-- Due EOD Friday, 6 PM PST, *DATE HERE*
+- Due EOD Friday, 6 PM PST, *Fri, Nov 1st*
 
 ## Introduction
 
