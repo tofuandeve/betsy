@@ -14,7 +14,7 @@ class MerchantsController < ApplicationController
             redirect_to homepages_path
             return
         else
-            redirect_to merchant_path(id: merchant.id)
+            redirect_to merchants_path(id: merchant.id)
         end
         
     end
