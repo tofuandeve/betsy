@@ -4,7 +4,7 @@ describe MerchantsController do
 
   describe "show" do
 
-        it "correctly locates a merchant by username" do
+        it "successfully redirects to the show page for a valid merchant" do
           valid_merchant = Merchant.create(username: "industrious_raccoon", email: "givemeyoureggshells@bandit.com")
 
           get merchant_path(valid_merchant.id)
