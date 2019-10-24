@@ -8,8 +8,40 @@
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
-
   <body>
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-light fixed-top navbar-custom">
+
+        <%= link_to "Bandit", root_path, class: "navbar-brand" %>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <%= link_to "All Merchants", root_path, class: "nav-link" %>
+            </li>
+          </ul>
+
+          <ul class="navbar-nav navbar-right">
+            <% if @current %>
+              <li class="nav-item app-header__nav_item">
+                <%= link_to "Logged in as #{@current.username}", root_path, class: "nav-link" %>
+              </li>
+              <li class="nav-item app-header__nav_item">
+                <%= link_to "Log out", root_path, method: "delete" , class: "nav-link" %>
+              </li>
+            <% else %>
+              <li class="nav-item app-header__nav_item">
+                <%= link_to "Login with GitHub", root_path, class: "btn btn-primary" %>
+              </li>
+            <% end %>  
+          </ul>
+        </div>
+      </nav>
+    </header>
+
     <%= yield %>
   </body>
 </html>
