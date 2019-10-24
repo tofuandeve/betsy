@@ -3,6 +3,6 @@ Rails.application.routes.draw do
   root :to => "homepages#index"
   
   
-  resources :merchants, except: [:index, :update]
+  resources :merchants, except: [:index, :edit, :update]
 
 end
