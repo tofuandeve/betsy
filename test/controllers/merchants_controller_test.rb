@@ -3,7 +3,7 @@ require "test_helper"
 describe MerchantsController do
 
   describe "current" do
-    it "responds with success when user has logged in" do
+    it "responds with success when merchant has logged in" do
       # Arrange
       perform_login
 
@@ -14,14 +14,14 @@ describe MerchantsController do
       must_respond_with :success
     end
 
-    it "responds with not_found when user hasn't logged in" do
+    it "redirects to root path when merchant hasn't logged in" do
       # No arrange needed
 
       # Act
       get current_merchant_path
 
       # Assert
-      must_respond_with :not_found
+      must_redirect_to root_path
     end
   end
 

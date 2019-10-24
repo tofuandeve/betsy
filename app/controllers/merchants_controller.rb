@@ -2,7 +2,8 @@ class MerchantsController < ApplicationController
   def current
     @merchant = Merchant.find_by(id: session[:user_id])
     if @merchant.nil?
-      head :not_found
+      flash[:error] = "Error! There is no merchant currently logged in."
+      redirect_to root_path
       return
     end 
   end
