@@ -15,23 +15,22 @@ describe MerchantsController do
       Merchant.count.must_equal start_count
     end
     
-    describe "creates an account for a new user and redirects to the root route" do
-      it "creates a new user" do
-        start_count = Merchant.count
-        merchant = Merchant.new(provider: "github", uid: 99999, username: "test_merchant", email: "test@merchant.com")
-        
-        OmniAuth.config.mock_auth[:github] = OmniAuth::AuthHash.new(mock_auth_hash(merchant))
-        get auth_callback_path(:github)
-        
-        must_redirect_to root_path
-        
-        # Should have created a new user
-        Merchant.count.must_equal start_count + 1
-        
-        # The new user's ID should be set in the session
-        session[:merchant_id].must_equal Merchant.last.id
-      end
+    it "creates an account for a new user and redirects to the root route" do
+      start_count = Merchant.count
+      merchant = Merchant.new(provider: "github", uid: 99999, username: "test_merchant", email: "test@merchant.com")
+      
+      OmniAuth.config.mock_auth[:github] = OmniAuth::AuthHash.new(mock_auth_hash(merchant))
+      get auth_callback_path(:github)
+      
+      must_redirect_to root_path
+      
+      # Should have created a new user
+      Merchant.count.must_equal start_count + 1
+      
+      # The new user's ID should be set in the session
+      session[:merchant_id].must_equal Merchant.last.id
     end
+    
     
     it "redirects to the login route if given invalid user data" do
       OmniAuth.config.mock_auth[:github] =
@@ -43,4 +42,45 @@ describe MerchantsController do
       expect(session[:merchant_id]).must_be_nil
     end
   end
+  
+  describe "current" do
+    it "responds with success when merchant has logged in" do
+      # Arrange
+      perform_login
+      
+      # Act
+      get current_merchant_path
+      
+      # Assert
+      must_respond_with :success
+    end
+    
+    it "redirects to root path when merchant hasn't logged in" do
+      # No arrange needed
+      
+      # Act
+      get current_merchant_path
+      
+      # Assert
+      must_redirect_to root_path
+    end
+  end
+  
+  describe "show" do
+    
+    it "successfully redirects to the show page for a valid merchant" do
+      valid_merchant = Merchant.create(username: "industrious_raccoon", email: "givemeyoureggshells@bandit.com")
+      
+      get merchant_path(valid_merchant.id)
+      must_redirect_to merchant_path(valid_merchant.id)
+    end
+    
+    it "redirects to root path when given an invalid id" do
+      get merchant_path(-1)
+      must_redirect_to root_path
+    end
+  end
 end
+
+
+

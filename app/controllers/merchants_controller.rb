@@ -1,5 +1,23 @@
 class MerchantsController < ApplicationController
-  def index
+  def current
+    @merchant = Merchant.find_by(id: session[:user_id])
+    if @merchant.nil?
+      flash[:error] = "Error! There is no merchant currently logged in."
+      redirect_to root_path
+      return
+    end 
+  end
+
+  def show 
+    @merchant = Merchant.find_by(id: params[:id])
+
+    if @merchant.nil?
+      flash[:error] = "You must log in to view the merchant dashboard."
+      redirect_to root_path
+      return
+    else
+      redirect_to merchant_path(@merchant.id)
+    end   
   end
 
   def create
@@ -10,7 +28,6 @@ class MerchantsController < ApplicationController
       flash[:result_text] = "Successfully logged in as existing merchant #{merchant.username}"
     else
       merchant = Merchant.build_from_github(auth_hash)
-
       if merchant.save
         flash[:status] = :success
         flash[:result_text] = "Successfully created new merchant #{merchant.username} with ID #{merchant.id}"
@@ -26,4 +43,5 @@ class MerchantsController < ApplicationController
     redirect_to root_path
     return
   end
+
 end
