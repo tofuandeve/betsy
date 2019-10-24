@@ -6,7 +6,6 @@ describe MerchantsController do
 
         it "correctly locates a merchant by username" do
           valid_merchant = Merchant.create(username: "industrious_raccoon", email: "givemeyoureggshells@bandit.com")
-          valid_merchant = Merchant.find_by(username: valid_merchant.username)
 
           get merchant_path(valid_merchant.id)
           must_redirect_to merchant_path(valid_merchant.id)
