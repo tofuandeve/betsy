@@ -8,14 +8,15 @@ describe MerchantsController do
           valid_merchant = Merchant.create(username: "industrious_raccoon", email: "givemeyoureggshells@bandit.com")
           valid_merchant = Merchant.find_by(username: valid_merchant.username)
 
-          get merchants_path(id: valid_merchant.id)
-          must_redirect_to merchants_path(id: valid_merchant.id)
+          get merchant_path(valid_merchant.id)
+          must_redirect_to merchant_path(valid_merchant.id)
         end
 
         it "redirects to root path when given an invalid id" do
           
-          get merchants_path(-1)
-          must_redirect_to merchants_path
+          get merchant_path(-1)
+          must_redirect_to root_path
+
         end
 
 

@@ -1,20 +1,14 @@
 class MerchantsController < ApplicationController
 
     def show 
-        @merchant = Merchant.find_by(id: params[:username])
+        @merchant = Merchant.find_by(id: params[:id])
 
-        if @user.nil?
-            flash[:error] = "That user does not exist"
-            redirect_to homepages_path
-            return
-        end
-
-        if session[:username].nil?
+        if @merchant.nil?
             flash[:error] = "You must log in to view the merchant dashboard."
-            redirect_to homepages_path
+            redirect_to root_path
             return
         else
-            redirect_to merchants_path(id: merchant.id)
+            redirect_to merchant_path(@merchant.id)
         end
         
     end
