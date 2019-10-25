@@ -19,7 +19,6 @@ describe ProductsController do
 
   describe "show" do
     it "responds with success when given id exists" do
-      valid_garbage = Product.create(name: "trashgarbage", status: "active", description: "nice and slimy, beautiful and rotten", price: 12, stock: 14, photo_url: "http://imgur.com/eggshells4life")
       valid_garbage = Product.find_by(id: valid_garbage.id)
 
       get product_path( valid_garbage.id )
@@ -45,10 +44,12 @@ describe ProductsController do
         }
       }
       expect { post products_path, params: product_hash }.must_differ 'Product.count', 1
-      must_redirect_to product_path(Product.find_by(name: "trashgarbage").id)
+      must_redirect_to product_path(Product.find_by(name: "trashgarbage").id}
     end
 
     it "redirects to the new product's show page" do
+      
+
     end
 
     it "does not create a new product when given invalid information" do
