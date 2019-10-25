@@ -1,6 +1,8 @@
 require "test_helper"
 
 describe ProductsController do
+
+  let(:valid_product1) { products( :product1 ) }
   
   describe "index" do
     it "responds with success when directed to the index page" do
@@ -19,9 +21,8 @@ describe ProductsController do
 
   describe "show" do
     it "responds with success when given id exists" do
-      valid_garbage = Product.find_by(id: valid_garbage.id)
 
-      get product_path( valid_garbage.id )
+      get product_path( valid_product1.id )
       must_respond_with :success
     end
 
@@ -44,7 +45,7 @@ describe ProductsController do
         }
       }
       expect { post products_path, params: product_hash }.must_differ 'Product.count', 1
-      must_redirect_to product_path(Product.find_by(name: "trashgarbage").id}
+      must_redirect_to product_path(Product.find_by(name: "trashgarbage").id)
     end
 
     it "redirects to the new product's show page" do
