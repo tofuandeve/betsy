@@ -31,7 +31,7 @@
                 <%= link_to "Logged in as #{@current.username}", root_path, class: "nav-link" %>
               </li>
               <li class="nav-item app-header__nav_item">
-                <%= link_to "Log out", root_path, method: "delete" , class: "nav-link" %>
+                <%= link_to "Log out", logout_path, method: "delete" , class: "nav-link" %>
               </li>
             <% else %>
               <li class="nav-item app-header__nav_item">
