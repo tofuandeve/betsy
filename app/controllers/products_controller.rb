@@ -22,7 +22,7 @@ class ProductsController < ApplicationController
 
     if @product.save
       flash[:success] = "Successfully created #{@product.name}"
-      redirect_to product_path( product.id )
+      redirect_to product_path( @product.id )
       return
     else
       flash.now[:error] = "A problem occurred: Could not create #{@product.name}"

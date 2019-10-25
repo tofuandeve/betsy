@@ -11,7 +11,7 @@ describe ProductsController do
     it "does not list a product with a retired status" do
       get products_path
       @products.each do |product|
-        expect{product.status}.must_equal "active" 
+        expect _(product.status).must_equal "active" 
       end
     end
 
@@ -20,6 +20,7 @@ describe ProductsController do
   describe "show" do
     it "responds with success when given id exists" do
       valid_garbage = Product.create(name: "trashgarbage", status: "active", description: "nice and slimy, beautiful and rotten", price: 12, stock: 14, photo_url: "http://imgur.com/eggshells4life")
+      p valid_garbage = Product.find_by(id: valid_garbage.id)
 
       get product_path( valid_garbage.id )
       must_respond_with :success
@@ -32,7 +33,20 @@ describe ProductsController do
   end
 
   describe "create" do
-    it "creates a new product with valid data" do
+    it "creates a new product successfully with valid data" do
+      product_hash = {
+        product: {
+          name: "trashgarbage",
+          status: "active",
+          description: "nice and slimy, beautiful and rotten", 
+          price: 12,
+          stock: 14,
+          photo_url: "http://imgur.com/eggshells4life"
+        }
+      }
+      expect { post products_path, params: product_hash }.must_differ 'Product.count', 1
+      p Product.find_by(name: "trashgarbage")
+      must_redirect_to product_path(Product.find_by(name: "trashgarbage").id)
     end
 
     it "redirects to the new product's show page" do
