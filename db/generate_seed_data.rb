@@ -11,11 +11,12 @@ require "csv"
 # doesn't currently check for if titles are unique against each other
 
 CSV.open("db/merchant_seeds.csv", "w", :write_headers => true,
-    :headers => ["username", "email"]) do |csv|
-        25.times do
+    :headers => ["username", "email", "uid", "provider"]) do |csv|
+        25.times do |index|
             username = Faker::Internet.username
             email = Faker::Internet.email
-            
-            csv << [username, email]
+            uid = index + 1
+            provider = "github"
+            csv << [username, email, uid, provider]
         end
     end
