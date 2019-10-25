@@ -5,3 +5,37 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+
+require 'csv'
+
+MERCHANT_FILE = Rails.root.join('db', 'merchant_seeds.csv')
+puts "Loading raw merchants data from #{MERCHANT_FILE}"
+
+merchant_failures = []
+CSV.foreach(MERCHANT_FILE, :headers => true) do |row|
+  merchant = Merchant.new
+  merchant.username = row['username']
+  merchant.email = row['email']
+  merchant.uid = row['uid']
+  merchant.provider = row['provider']
+
+  successful = merchant.save
+  if !successful
+    merchant_failures << merchant
+    puts "Failed to save merchant: #{merchant.inspect}"
+  else
+    puts "Created merchant: #{merchant.inspect}"
+  end
+end
+
+puts "Added #{Merchant.count} merchant records"
+puts "#{merchant_failures.length} merchants failed to save"
+
+
+puts "Manually resetting PK sequence on each table"
+ActiveRecord::Base.connection.tables.each do |t|
+  ActiveRecord::Base.connection.reset_pk_sequence!(t)
+end
+
+puts "done"
