@@ -9,10 +9,10 @@ describe MerchantsController do
       
       perform_login(merchant)
       must_redirect_to root_path
-      session[:merchant_id].must_equal merchant.id
+      expect _(session[:merchant_id]).must_equal merchant.id
       
       # Should *not* have created a new user
-      Merchant.count.must_equal start_count
+      expect _(Merchant.count).must_equal start_count
     end
     
     it "creates an account for a new user and redirects to the root route" do
@@ -25,10 +25,10 @@ describe MerchantsController do
       must_redirect_to root_path
       
       # Should have created a new user
-      Merchant.count.must_equal start_count + 1
+      expect _(Merchant.count).must_equal start_count + 1
       
       # The new user's ID should be set in the session
-      session[:merchant_id].must_equal Merchant.last.id
+      expect _(session[:merchant_id]).must_equal Merchant.last.id
     end
     
     
@@ -39,7 +39,7 @@ describe MerchantsController do
       expect { get auth_callback_path(:github) }.wont_change "Merchant.count"
       
       must_redirect_to root_path
-      expect(session[:merchant_id]).must_be_nil
+      assert_nil (session[:merchant_id])
     end
   end
   
@@ -69,7 +69,8 @@ describe MerchantsController do
   describe "show" do
     
     it "successfully redirects to the show page for a valid merchant" do
-      valid_merchant = Merchant.create(username: "industrious_raccoon", email: "givemeyoureggshells@bandit.com")
+      valid_merchant = Merchant.create(uid: 12, provider: "github", username: "industrious_raccoon", email: "givemeyoureggshells@bandit.com")
+      valid_merchant = Merchant.find_by(uid: 12, provider: "github")
       
       get merchant_path(valid_merchant.id)
       must_redirect_to merchant_path(valid_merchant.id)
