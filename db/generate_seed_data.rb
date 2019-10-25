@@ -11,12 +11,25 @@ require "csv"
 # doesn't currently check for if titles are unique against each other
 
 CSV.open("db/merchant_seeds.csv", "w", :write_headers => true,
-    :headers => ["username", "email", "uid", "provider"]) do |csv|
-        25.times do |index|
-            username = Faker::Internet.username
-            email = Faker::Internet.email
-            uid = index + 1
-            provider = "github"
-            csv << [username, email, uid, provider]
-        end
+  :headers => ["username", "email", "uid", "provider"]) do |csv|
+    25.times do |index|
+      username = Faker::Internet.username
+      email = Faker::Internet.email
+      uid = index + 1
+      provider = "github"
+      csv << [username, email, uid, provider]
+    end
+  end
+  
+  CSV.open("db/product_seeds.csv", "w", :write_headers => true,
+    :headers => ["name", "description", "status", "price", "stock", "photo_url"]) do |csv|
+      25.times do |index|
+        name = Faker::Commerce.product_name
+        description = Faker::Lorem.sentence(word_count: 15)
+        status = "active"
+        price = Faker::Commerce.price
+        stock = index + 2
+        photo_url = Faker::LoremFlickr.image(size: "50x50", search_terms: ['totoro'])
+        csv << [name, description, status, price, stock, photo_url]
+      end
     end

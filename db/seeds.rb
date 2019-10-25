@@ -29,8 +29,35 @@ CSV.foreach(MERCHANT_FILE, :headers => true) do |row|
   end
 end
 
+
+# PRODUCT_FILE = Rails.root.join('db', 'product_seeds.csv')
+# puts "Loading raw products data from #{PRODUCT_FILE}"
+
+# product_failures = []
+# CSV.foreach(PRODUCT_FILE, :headers => true) do |row|
+#   product = Product.new
+
+#   product.name = row['name']
+#   product.description = row['description']
+#   product.status = row['status']
+#   product.price = row['price']
+#   product.stock = row['stock']
+#   product.photo_url = row['photo_url']
+
+#   successful = product.save
+#   if !successful
+#     product_failures << product
+#     puts "Failed to save product: #{product.inspect}"
+#   else
+#     puts "Created product: #{product.inspect}"
+#   end
+# end
+
 puts "Added #{Merchant.count} merchant records"
 puts "#{merchant_failures.length} merchants failed to save"
+
+# puts "Added #{Product.count} product records"
+# puts "#{product_failures.length} products failed to save"
 
 
 puts "Manually resetting PK sequence on each table"
