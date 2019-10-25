@@ -1,12 +1,20 @@
 merchant1:
   username: hector_becker
+  uid: 12
+  provider: github
   email: terica@koepp.co
 merchant2:
   username: irwin
+  uid: 122
+  provider: github
   email: connie_tromp@mclaughlincruickshank.io
 merchant3:
   username: shonta.kris
+  uid: 112
+  provider: github
   email: janina.bahringer@wunsch.biz
 merchant4:
   username: erasmo
+  uid: 121
+  provider: github
   email: rashad@pacocha.info
