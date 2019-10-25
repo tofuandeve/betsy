@@ -1,5 +1,4 @@
 require "test_helper"
-require "pry"
 
 describe MerchantsController do
   describe "auth_callback" do
