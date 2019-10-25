@@ -29,7 +29,7 @@ CSV.open("db/merchant_seeds.csv", "w", :write_headers => true,
         status = "active"
         price = Faker::Commerce.price
         stock = index + 2
-        photo_url = Faker::LoremFlickr.image(size: "50x50", search_terms: ['totoro'])
+        photo_url = Faker::LoremFlickr.image(size: "250x250", search_terms: ['kitty'])
         csv << [name, description, status, price, stock, photo_url]
       end
     end
