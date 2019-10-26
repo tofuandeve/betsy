@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :find_product, only: [:show, :edit, :udate]
+  before_action :find_product, only: [:show, :edit, :update]
 
   def index
     @products = Product.where(status: "active")
@@ -41,7 +41,7 @@ class ProductsController < ApplicationController
       return
     else
       flash[:error] = "A problem occurred and #{@product.name} could not be updated."
-      render edit_product_path( @product.id )
+      render :edit
       return
     end
   end
