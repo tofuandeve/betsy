@@ -44,6 +44,7 @@ describe OrdersController do
       must_respond_with :redirect
       must_redirect_to order_path(new_order.id)
     end
+    
     it "doesn't create a new order for invalid input" do
       bad_order_hash = {}
       expect {
