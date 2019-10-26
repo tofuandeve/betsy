@@ -5,12 +5,12 @@ describe OrdersController do
     it "can get the new order page and responds with success" do
       # Act
       get new_order_path
-
+      
       # Assert
       must_respond_with :success
     end
   end
-
+  
   describe "create" do
     it "can create a new order and redirects to the order_path" do
       # Arrange
@@ -25,12 +25,12 @@ describe OrdersController do
           zipcode: "98102",
         },
       }
-
+      
       # Act-Assert
       expect {
         post orders_path, params: order_hash
       }.must_change "Order.count", 1
-
+      
       new_order = Order.find_by(buyer_name: order_hash[:order][:buyer_name])
       expect(new_order.buyer_email).must_equal order_hash[:order][:buyer_email]
       expect(new_order.buyer_address).must_equal order_hash[:order][:buyer_address]
@@ -39,19 +39,43 @@ describe OrdersController do
       expect(new_order.card_expiration).must_equal order_hash[:order][:card_expiration]
       expect(new_order.cvv).must_equal order_hash[:order][:cvv]
       expect(new_order.zipcode).must_equal order_hash[:order][:zipcode]
-
+      
       must_respond_with :redirect
       must_redirect_to order_path(new_order.id)
     end
-
+    
     it "doesn't create a new order for invalid input" do
       bad_order_hash = {}
       start_count = Order.count
       expect {
         post orders_path, params: bad_order_hash
       }.must_raise
-
+      
       expect (Order.count).must_equal start_count
+    end
+  end
+  
+  describe "edit" do
+    it "can get the edit page for an existing order" do
+      order = Order.create(
+        buyer_email: "raccon@raccoon.net",
+        buyer_address: "123 raccoon way",
+        buyer_name: "Rocky Raccoon",
+        buyer_card: "12334577848",
+        card_expiration: "12/23",
+        cvv: "234",
+        zipcode: "98102"
+      )
+
+      get edit_order_path(order.id)
+      
+      must_respond_with :success
+    end
+    
+    it "will respond with redirect when attempting to edit a nonexistant order" do
+      get edit_order_path(-1)
+      
+      must_respond_with :redirect
     end
   end
 end
