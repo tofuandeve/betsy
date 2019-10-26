@@ -2,7 +2,7 @@ require "test_helper"
 
 describe OrdersController do
   describe "new" do
-    it "can get the new order page" do
+    it "can get the new order page and responds with success" do
       # Act
       get new_order_path
 
@@ -12,7 +12,7 @@ describe OrdersController do
   end
 
   describe "create" do
-    it "can create a new order" do
+    it "can create a new order and redirects to the order_path" do
       # Arrange
       order_hash = {
         order: {
@@ -43,12 +43,15 @@ describe OrdersController do
       must_respond_with :redirect
       must_redirect_to order_path(new_order.id)
     end
-    
+
     it "doesn't create a new order for invalid input" do
       bad_order_hash = {}
+      start_count = Order.count
       expect {
         post orders_path, params: bad_order_hash
       }.must_raise
+
+      expect (Order.count).must_equal start_count
     end
   end
 end
