@@ -13,7 +13,6 @@ describe OrdersController do
 
   describe "create" do
     it "can create a new order" do
-
       # Arrange
       order_hash = {
         order: {
