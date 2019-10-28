@@ -74,10 +74,10 @@ describe OrdersController do
       must_respond_with :success
     end
     
-    it "will respond with 404 when attempting to edit a nonexistant order" do
+    it "will redirect to root_path when attempting to edit a nonexistant order" do
       get edit_order_path(-1)
       
-      must_respond_with :not_found
+      must_redirect_to root_path
     end
   end
   
@@ -111,20 +111,14 @@ describe OrdersController do
       must_redirect_to order_path(existing_order.id)  
     end
     
-    it "will respond with 404 if given an invalid id" do
+    it "will redirect to root_path if given an invalid id" do
       expect {
         patch order_path(-1), params: @order_hash
       }.must_differ "Order.count", 0
       
-      must_respond_with :not_found
+      must_redirect_to root_path
     end
-    
-    it "renders to order_path page if input is not valid and save fails" do
-      order_hash = {}
-      expect { 
-        patch order_path(@valid_order.id), params: order_hash
-      }.must_raise
-    end
+
   end
   
 end

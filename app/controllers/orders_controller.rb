@@ -26,7 +26,7 @@ class OrdersController < ApplicationController
   
   def update
     if @order     
-      
+
       if @order.update(order_params) # update certain attributes instead of everything at once
         flash[:success] = "order updated!"
         redirect_to order_path(@order.id)
@@ -46,6 +46,10 @@ class OrdersController < ApplicationController
   
   def find_order
     @order = Order.find_by(id: params[:id])
-    head :not_found unless @order
+    if @order.nil?
+      flash[:error] = "That order does not exist"
+      redirect_to root_path
+      return
+    end
   end
 end
