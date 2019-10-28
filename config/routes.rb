@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   root :to => "homepages#index"
 
   resources :merchants, except: [:index, :edit, :update]
+  resources :products, except: [:destroy]
+  
   get "/merchants/current", to: "merchants#current", as: "current_merchant"
 
   # OAuth support
