@@ -1,6 +1,6 @@
 class MerchantsController < ApplicationController
   def current
-    @merchant = Merchant.find_by(id: session[:user_id])
+    @merchant = Merchant.find_by(id: session[:merchant_id])
     if @merchant.nil?
       flash[:error] = "Error! There is no merchant currently logged in."
       redirect_to root_path
@@ -10,13 +10,16 @@ class MerchantsController < ApplicationController
 
   def show
     @merchant = Merchant.find_by(id: params[:id])
-
     if @merchant.nil?
+      flash[:error] = "Invalid merchant information."
+      redirect_to root_path
+      return
+    end
+
+    if @merchant.id != (session[:merchant_id])
       flash[:error] = "You must log in to view the merchant dashboard."
       redirect_to root_path
       return
-    else
-      redirect_to merchant_path(@merchant.id)
     end
   end
 
