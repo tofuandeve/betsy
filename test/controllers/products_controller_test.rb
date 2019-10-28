@@ -108,7 +108,7 @@ describe ProductsController do
         must_redirect_to product_path(Product.find_by(name: "trashgarbage").id)
       end
 
-      it "does not create a new product when given invalid information and redirects to new product path" do
+      it "does not create a new product when given invalid information and renders to new product path" do
         product_hash = {
           product: {
             name: "",
