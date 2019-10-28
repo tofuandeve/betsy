@@ -51,6 +51,10 @@ describe ProductsController do
     end
 
     describe "update" do
+      it "redirects to the homepage when a logged out user tries to update a product" do
+        patch product_path( valid_product1.id )
+        must_redirect_to root_path
+      end
     end
 
   end

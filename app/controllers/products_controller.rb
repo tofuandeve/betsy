@@ -51,14 +51,20 @@ class ProductsController < ApplicationController
   end
 
   def update
-    if @product.update( product_params )
-      flash[:success] = "Successfully updated #{@product.name}"
-      redirect_to product_path( @product.id )
+
+    if session[:merchant_id] == nil
+      redirect_to root_path
       return
     else
-      flash[:error] = "A problem occurred and #{@product.name} could not be updated."
-      render :edit
-      return
+      if @product.update( product_params )
+        flash[:success] = "Successfully updated #{@product.name}"
+        redirect_to product_path( @product.id )
+        return
+      else
+        flash[:error] = "A problem occurred and #{@product.name} could not be updated."
+        render :edit
+        return
+      end
     end
   end
 
