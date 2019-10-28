@@ -44,6 +44,10 @@ describe ProductsController do
     end
 
     describe "edit" do
+      it "redirects to the homepage when a logged out user tries to edit a product" do
+        get edit_product_path( valid_product1.id )
+        must_redirect_to root_path
+      end
     end
 
     describe "update" do

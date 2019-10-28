@@ -44,6 +44,10 @@ class ProductsController < ApplicationController
   end
 
   def edit
+    if session[:merchant_id] == nil
+      redirect_to root_path
+      return
+    end
   end
 
   def update
