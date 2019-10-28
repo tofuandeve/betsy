@@ -24,17 +24,22 @@ class ProductsController < ApplicationController
   end
 
   def create
-    @product = Product.new(product_params)
-    @product.status = "active"
 
-    if @product.save
-      flash[:success] = "Successfully created #{@product.name}"
-      redirect_to product_path( @product.id )
+    if session[:merchant_id] == nil
+      redirect_to root_path 
       return
     else
-      flash.now[:error] = "A problem occurred: Could not create #{@product.name}"
-      render new_product_path
-      return
+      @product = Product.new(product_params)
+      @product.status = "active"
+      if @product.save
+        flash[:success] = "Successfully created #{@product.name}"
+        redirect_to product_path( @product.id )
+        return
+      else
+        flash.now[:error] = "A problem occurred: Could not create #{@product.name}"
+        render new_product_path
+        return
+      end
     end
   end
 

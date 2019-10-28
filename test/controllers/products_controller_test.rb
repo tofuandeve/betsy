@@ -31,15 +31,16 @@ describe ProductsController do
 
     describe "new" do
       it "redirects to the homepage when a logged out user tries to create a new product" do
-        # p session[:merchant_id]
-        # assert_nil(session[:merchant_id])
         get new_product_path
         must_redirect_to root_path
       end
     end
 
     describe "create" do
-
+      it "redirects to the homepage when a logged out user tries to create a new product" do
+        post products_path
+        must_redirect_to root_path
+      end
     end
 
     describe "edit" do
