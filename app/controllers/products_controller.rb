@@ -2,7 +2,7 @@ class ProductsController < ApplicationController
   before_action :find_product, only: [:show, :edit, :update]
 
   def index
-    @products = Product.where(status: "active")
+    @products = Product.list_active
   end
 
   def show
@@ -13,7 +13,14 @@ class ProductsController < ApplicationController
   end
 
   def new
-    @product = Product.new
+    
+    if session[:merchant_id] == nil
+      flash[:error] = "You must be logged in to create a new product"
+      redirect_to root_path
+      return
+    else
+      @product = Product.new
+    end
   end
 
   def create

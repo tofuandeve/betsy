@@ -1,23 +1,32 @@
 product1:
- name: trashgarbage,
- status: active,
- description: nice and slimy, beautiful and rotten, 
- price: 12,
- stock: 14,
+ name: sloppy sandwich
+ status: active
+ description: nice and slimy, beautiful and rotten
+ price: 12
+ stock: 14
  photo_url: http://imgur.com/eggshells4life
 
 product2: 
- name: corn cob,
- status: active,
- description: delicious with nice fuzzies, 
- price: 30,
- stock: 2,
+ name: corn cob
+ status: active
+ description: delicious with nice fuzzies
+ price: 30
+ stock: 2
  photo_url: http://imgur.com/corncobs
 
 product3: 
- name: smashed pumpkin with face nibbles,
- status: active,
- description: work of art, 
- price: 100,
- stock: 1,
+ name: smashed pumpkin with face nibbles
+ status: active
+ description: work of art
+ price: 100
+ stock: 1
  photo_url: http://imgur.com/pumpkinbits
+
+retired_product:
+ name: aged canteloupe peel
+ status: retired
+ description: orange and juicy
+ price: 14
+ stock: 3
+ photo_url: http://imgur.com/canteloupesies
+
