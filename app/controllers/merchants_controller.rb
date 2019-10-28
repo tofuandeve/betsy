@@ -12,6 +12,7 @@ class MerchantsController < ApplicationController
     @merchant = Merchant.find_by(id: params[:id])
     if @merchant.nil?
       flash[:error] = "Invalid merchant information."
+      redirect_to root_path
       return
     end
 
