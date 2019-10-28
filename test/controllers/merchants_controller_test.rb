@@ -84,9 +84,10 @@ describe MerchantsController do
     it "successfully redirects to the show page for a valid merchant" do
       valid_merchant = Merchant.create(uid: 12, provider: "github", username: "industrious_raccoon", email: "givemeyoureggshells@bandit.com")
       valid_merchant = Merchant.find_by(uid: 12, provider: "github")
+      perform_login(valid_merchant)
 
       get merchant_path(valid_merchant.id)
-      must_redirect_to merchant_path(valid_merchant.id)
+      must_respond_with :success
     end
 
     it "redirects to root path when given an invalid id" do
