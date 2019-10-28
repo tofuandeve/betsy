@@ -1,6 +1,18 @@
 require "test_helper"
 
 describe OrdersController do
+  before do
+    @valid_order = Order.create(
+      buyer_email: "raccon@raccoon.net",
+      buyer_address: "123 raccoon way",
+      buyer_name: "Rocky Raccoon",
+      buyer_card: "12334577848",
+      card_expiration: "12/23",
+      cvv: "234",
+      zipcode: "98102"
+    )
+  end
+  
   describe "new" do
     it "can get the new order page and responds with success" do
       # Act
@@ -17,12 +29,12 @@ describe OrdersController do
       order_hash = {
         order: {
           buyer_email: "raccon@raccoon.net",
-          buyer_address: "123 raccoon way",
-          buyer_name: "Rocky Raccoon",
-          buyer_card: "12334577848",
-          card_expiration: "12/23",
-          cvv: "234",
-          zipcode: "98102",
+          buyer_address: "123 raccoon way NEW",
+          buyer_name: "Rocky Raccoon NEW",
+          buyer_card: "12334567890",
+          card_expiration: "12/24",
+          cvv: "239",
+          zipcode: "98103",
         },
       }
       
@@ -57,25 +69,62 @@ describe OrdersController do
   
   describe "edit" do
     it "can get the edit page for an existing order" do
-      order = Order.create(
-        buyer_email: "raccon@raccoon.net",
-        buyer_address: "123 raccoon way",
-        buyer_name: "Rocky Raccoon",
-        buyer_card: "12334577848",
-        card_expiration: "12/23",
-        cvv: "234",
-        zipcode: "98102"
-      )
-
-      get edit_order_path(order.id)
+      get edit_order_path(@valid_order.id)
       
       must_respond_with :success
     end
     
-    it "will respond with redirect when attempting to edit a nonexistant order" do
+    it "will respond with 404 when attempting to edit a nonexistant order" do
       get edit_order_path(-1)
       
-      must_respond_with :redirect
+      must_respond_with :not_found
     end
   end
+  
+  describe "update" do
+    before do 
+      @order_hash = {
+        order: {
+          buyer_email: "raccon@raccoon.net",
+          buyer_address: "123 raccoon way VERY UPDATED",
+          buyer_name: "Rocky Raccoon Jr.",
+          buyer_card: "12334577848",
+          card_expiration: "12/23",
+          cvv: "234",
+          zipcode: "98102",
+        },
+      }
+    end
+    
+    it "can update an existing order and redirect to order show page" do
+      existing_order = Order.find_by(id: @valid_order[:id])
+      
+      expect { 
+        patch order_path(existing_order.id), params: @order_hash
+      }.must_differ "Order.count", 0
+      
+      existing_order = Order.find_by(id: existing_order.id)
+      expect _(existing_order.buyer_address).must_equal @order_hash[:order][:buyer_address]
+      expect _(existing_order.buyer_name).must_equal @order_hash[:order][:buyer_name]
+      
+      must_respond_with :redirect
+      must_redirect_to order_path(existing_order.id)  
+    end
+    
+    it "will respond with 404 if given an invalid id" do
+      expect {
+        patch order_path(-1), params: @order_hash
+      }.must_differ "Order.count", 0
+      
+      must_respond_with :not_found
+    end
+    
+    it "renders to order_path page if input is not valid and save fails" do
+      order_hash = {}
+      expect { 
+        patch order_path(@valid_order.id), params: order_hash
+      }.must_raise
+    end
+  end
+  
 end
