@@ -4,13 +4,25 @@
 </section>
 
 
-<section class="card text-center">
+<section class="card text-center card-image">
   <div class="card-body">
     <h5 class="card-title">Start Trading</h5>
       <p class="card-text">Have glorious garbage you want to trade for better, more glorious garbage?</p>
-    <a href="#" class="btn btn-primary booton">Browse Products</a>
+    <%= link_to "Browse Products", products_path, class: "btn btn-primary booton" %>
   </div>
 </section>
+
+<section class="card text-center">
+  <div class="card-header fancy-header">
+    Featured
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Today's Hottest Garbage</h5>
+    <p class="card-text">A preview of our most coveted finds</p>
+  </div>
+</section>
+
+
 
 <section class="card-columns">
   <div class="card">
@@ -24,7 +36,7 @@
   <div class="card">
   <img src="https://i.imgur.com/jbg9AzI.jpg" class="card-img-top" alt="...">
   <div class="card-body text-center">
-  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+  <p class="card-text">Inclues three banana (size 6 gobbles) as well as peanut butter swipe and half an egg shell. Very satisfying!</p>
   <p class="card-text">Eggshells: $9, Quantity: 40</p>
   </div>
 </div>
@@ -41,7 +53,7 @@
 <div class="card">
 <img src="https://i.imgur.com/3cEwmVL.jpg" class="card-img-top" alt="...">
 <div class="card-body text-center">
-<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+<p class="card-text">Includes kibble one cheese nub and nice stale fig newtons "</p>
 <p class="card-text">Eggshells: $9, Quantity: 40</p>
 </div>
 </div>
@@ -49,7 +61,7 @@
 <div class="card">
 <img src="https://i.imgur.com/VpphxxM.jpg" class="card-img-top" alt="...">
 <div class="card-body text-center">
-<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+<p class="card-text">Will have to fight for it but a delicious combination of peels with seeds and hunks of fruit.</p>
 <p class="card-text">Eggshells: $9, Quantity: 40</p>
 </div>
 </div>
@@ -57,8 +69,9 @@
 <div class="card">
 <img src="https://i.imgur.com/R98xU8G.jpg" class="card-img-top" alt="...">
 <div class="card-body text-center">
-<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+<p class="card-text">Spectacular and savory gourd hunk. Bonus baby toy.</p>
 <p class="card-text">Eggshells: $9, Quantity: 40</p>
 </div>
 </div>
 </section>
+

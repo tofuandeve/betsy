@@ -6,10 +6,6 @@
     text-align: center;
 }
 
-// .booton {
-//     background-color: purple;
-// }
-
 .btn-primary {
     background-color: purple;
     border-color: purple;/*set the color you want here*/
@@ -20,10 +16,10 @@
     border-color: plum; /*set the color you want here*/
 }
 
-.card-container {
-    display: flex;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr; 
-    justify-content: space-between;
-    width: 60%;   
+
+.fancy-header {
+    color: white;
+    background-color: darkblue;
+    justify-content: center;
+    text-align: center;
 }
