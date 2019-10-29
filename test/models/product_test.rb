@@ -51,7 +51,7 @@ describe Product do
       expect(current_product.in_stock?).must_equal true
     end
     
-    it "returns 0 if the current product is out of stock" do
+    it "returns false if the current product is out of stock" do
       current_product = products(:out_of_stock_product)
       expect(current_product.in_stock?).must_equal false
     end
