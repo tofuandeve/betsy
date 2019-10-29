@@ -17,19 +17,11 @@ class Product < ApplicationRecord
   end
 
   def toggle_retired
-    if self.status == "active"
-      self.status = "retired"
-    else
-      self.status = "active"
-    end
+    self.status = (self.status == "active") ? "retired" : "active"
   end
 
   def in_stock?
-    if self.stock > 0
-      return true
-    else
-      return false
-    end
+    return self.stock > 0
   end
 end
   
