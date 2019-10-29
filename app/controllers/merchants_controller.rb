@@ -1,16 +1,18 @@
 class MerchantsController < ApplicationController
-
-  def self.current
-    # @merchant = Merchant.find_by(id: session[:merchant_id])
+  
+  def current
     if session[:merchant_id] == nil
       flash[:error] = "Error! There is no merchant currently logged in."
       redirect_to root_path
       return
     else
       @merchant = Merchant.find_by(id: session[:merchant_id])
+      # redirect to a merchant show view so that we can reuse show view template
+      redirect_to merchant_path(session[:merchant_id])
+      return
     end
   end
-
+  
   def show
     @merchant = Merchant.find_by(id: params[:id])
     if @merchant.nil?
@@ -18,14 +20,14 @@ class MerchantsController < ApplicationController
       redirect_to root_path
       return
     end
-
+    
     if @merchant.id != (session[:merchant_id])
       flash[:error] = "You must log in to view the merchant dashboard."
       redirect_to root_path
       return
     end
   end
-
+  
   def create
     auth_hash = request.env["omniauth.auth"]
     merchant = Merchant.find_by(uid: auth_hash[:uid], provider: "github")
@@ -44,12 +46,12 @@ class MerchantsController < ApplicationController
         return redirect_to root_path
       end
     end
-
+    
     session[:merchant_id] = merchant.id
     redirect_to root_path
     return
   end
-
+  
   def destroy
     session[:merchant_id] = nil
     flash[:success] = "Successfully logged out!"
