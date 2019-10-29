@@ -34,3 +34,11 @@ retired_product:
  photo_url: http://imgur.com/canteloupesies
  merchant_id: 1
 
+out_of_stock_product:
+ name: moldy peaches
+ status: active
+ description: a great band and an even greater fruit
+ price: 12
+ stock: 0
+ photo_url: http://imgur.com/moldypeaches
+ merchant_id: 1
