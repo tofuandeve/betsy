@@ -18,15 +18,11 @@ class OrdersController < ApplicationController
   end
   
   def edit
-    if @order.nil?
-      redirect_to orders_path
-      return
-    end
   end
   
   def update
     if @order     
-
+      
       if @order.update(order_params) # update certain attributes instead of everything at once
         flash[:success] = "order updated!"
         redirect_to order_path(@order.id)
@@ -36,6 +32,19 @@ class OrdersController < ApplicationController
       render :edit
       return
     end
+  end
+  
+  def destroy
+    order = Order.find_by(id: params[:id])
+    if order 
+      flash[:success] = "Order deleted!"
+      order.destroy
+    else
+      flash[:error] = "That order doesn't exist!"
+    end
+    
+    redirect_to root_path
+    return
   end
   
   private
@@ -49,7 +58,6 @@ class OrdersController < ApplicationController
     if @order.nil?
       flash[:error] = "That order does not exist"
       redirect_to root_path
-      return
     end
   end
 end

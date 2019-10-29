@@ -118,7 +118,70 @@ describe OrdersController do
       
       must_redirect_to root_path
     end
-
+    
+    it "must not update order if given an invalid info" do
+      updated_order_hashes = [
+        {
+          order: {
+            buyer_email: "",
+            buyer_address: "",
+            buyer_name: "",
+            buyer_card: "",
+            card_expiration: "",
+            cvv: "",
+            zipcode: "",
+          }
+        },
+        {
+          order: {
+            buyer_email: nil,
+            buyer_address: nil,
+            buyer_name: nil,
+            buyer_card: nil,
+            card_expiration: nil,
+            cvv: nil,
+            zipcode: nil,
+          },
+        }
+      ]
+      
+      updated_order_hashes.each do |hash|
+        expect {
+          patch order_path(-1), params: hash
+        }.must_differ "Order.count", 0
+      end
+      
+      existing_order = Order.find_by(id: @valid_order.id)
+      expect _(existing_order.buyer_email).must_equal @valid_order.buyer_email
+      expect _(existing_order.buyer_address).must_equal @valid_order.buyer_address
+      expect _(existing_order.buyer_name).must_equal @valid_order.buyer_name
+      expect _(existing_order.buyer_card).must_equal @valid_order.buyer_card
+      expect _(existing_order.card_expiration).must_equal @valid_order.card_expiration
+      expect _(existing_order.cvv).must_equal @valid_order.cvv
+      expect _(existing_order.zipcode).must_equal @valid_order.zipcode
+    end
   end
   
+  describe "destroy" do
+    it "can destroy an existing order and redirect to root path" do
+      expect _(Order.count).must_equal 1
+      
+      expect {
+        delete order_path(@valid_order.id)
+      }.must_differ "Order.count", -1
+      
+      assert_nil (Order.find_by(id: @valid_order.id))
+      must_respond_with :redirect
+      must_redirect_to root_path
+    end
+    
+    it "will redirect to the root path if given an invalid id" do
+      expect {
+        delete order_path(-1)
+      }.must_differ "Order.count", 0
+      
+      must_respond_with :redirect
+      must_redirect_to root_path
+    end
+  end
 end
