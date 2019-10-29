@@ -101,7 +101,8 @@ describe ProductsController do
             description: "nice and slimy, beautiful and rotten", 
             price: 12,
             stock: 14,
-            photo_url: "http://imgur.com/eggshells4life"
+            photo_url: "http://imgur.com/eggshells4life",
+            merchant_id: session[:merchant_id]
           }
         }
         expect { post products_path, params: product_hash }.must_differ 'Product.count', 1
@@ -116,7 +117,8 @@ describe ProductsController do
             description: "nice and slimy, beautiful and rotten", 
             price: 12,
             stock: 14,
-            photo_url: "http://imgur.com/eggshells4life"
+            photo_url: "http://imgur.com/eggshells4life",
+            merchant_id: session[:merchant_id]
         }
       }
 
@@ -145,7 +147,8 @@ describe ProductsController do
               description: "work of art", 
               price: 50,
               stock: 1,
-              photo_url: "http://imgur.com/pumpkinbits"
+              photo_url: "http://imgur.com/pumpkinbits",
+              merchant_id: session[:merchant_id]
             }
           }
 
@@ -156,7 +159,8 @@ describe ProductsController do
             description: "nice and slimy, beautiful and rotten", 
             price: 12,
             stock: 14,
-            photo_url: "http://imgur.com/eggshells4life"
+            photo_url: "http://imgur.com/eggshells4life",
+            merchant_id: session[:merchant_id]
         }
       }
       end

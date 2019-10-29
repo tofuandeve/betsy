@@ -5,6 +5,7 @@ product1:
  price: 12
  stock: 14
  photo_url: http://imgur.com/eggshells4life
+ merchant_id: 1
 
 product2: 
  name: corn cob
@@ -13,6 +14,7 @@ product2:
  price: 30
  stock: 2
  photo_url: http://imgur.com/corncobs
+ merchant_id: 1
 
 product3: 
  name: smashed pumpkin with face nibbles
@@ -21,6 +23,7 @@ product3:
  price: 100
  stock: 1
  photo_url: http://imgur.com/pumpkinbits
+ merchant_id: 1
 
 retired_product:
  name: aged canteloupe peel
@@ -29,4 +32,5 @@ retired_product:
  price: 14
  stock: 3
  photo_url: http://imgur.com/canteloupesies
+ merchant_id: 1
 
