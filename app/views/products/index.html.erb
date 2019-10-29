@@ -1,7 +1,10 @@
 <section class="card text-center">
+  <div class="card-header">
+    Products
+  </div>
   <div class="card-body">
-    <h3 class="card-title">All Products</h3>
-      <p class="card-text">Trade Your Treasures</p>
+    <h3 class="card-title">Trade your Treasures</h3>
+    <p class="card-text">A preview of our most coveted finds</p>
   </div>
 </section>
 
@@ -9,25 +12,18 @@
 <section class="card-columns">
 
 
-  <div class="card">
-    <img src="https://i.imgur.com/CGm0vFg.jpg" class="card-img-top" alt="...">
-    <div class="card-body text-center">
-    <p class="card-text">Corn cob,Very exciting! Has most of kernals and is good and crisp!</p>
-    <p class="card-text">Eggshells: $9, Quantity: 40</p>
-    </div>
-  </div>
-
-
 
 
 <% @products.each do |product| %>
-    <div class="card">
+  <div class="card">
       <%= link_to image_tag(product.photo_url, alt: "Picture of #{product.name}"), products_path(product.id), class: "img" %>
     <div class="card-body text-center">
+    <h5 class="card-text"><%= product.name %></h5>
       <p class="card-text"><%= product.description %></p>
-      <p class="card-text">Eggshells: $9, Quantity: 40</p>
-      <%= link_to product.name, product_path(product.id)%>
+      
     </div>
   </div>
 <% end %>
+</section>
+
 
