@@ -147,7 +147,7 @@ describe OrdersController do
       
       updated_order_hashes.each do |hash|
         expect {
-          patch order_path(-1), params: hash
+          patch order_path(@valid_order.id), params: hash
         }.must_differ "Order.count", 0
       end
       
