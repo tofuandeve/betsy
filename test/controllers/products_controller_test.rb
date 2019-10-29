@@ -1,14 +1,12 @@
 require "test_helper"
 
 describe ProductsController do
-
-  let(:valid_product1) { products( :product1 ) }
-  let(:valid_product2) { products( :product2 ) }
-  let(:valid_product3) { products( :product3 ) }
-  let(:retired_product) { products( :retired_product) }
+  let(:valid_product1) { products(:product1) }
+  let(:valid_product2) { products(:product2) }
+  let(:valid_product3) { products(:product3) }
+  let(:retired_product) { products(:retired_product) }
 
   describe "logged out user" do
-
     describe "index" do
       it "responds with success when directed to the index page when logged out" do
         get products_path
@@ -18,13 +16,12 @@ describe ProductsController do
 
     describe "show" do
       it "responds with success when given id exists when logged out" do
-
-        get product_path( valid_product1.id )
-        must_respond_with :success 
+        get product_path(valid_product1.id)
+        must_respond_with :success
       end
 
       it "redirects to product index when given an invalid id when logged out" do
-        get product_path( -1 )
+        get product_path(-1)
         must_redirect_to products_path
       end
     end
@@ -45,18 +42,17 @@ describe ProductsController do
 
     describe "edit" do
       it "redirects to the homepage when a logged out user tries to edit a product" do
-        get edit_product_path( valid_product1.id )
+        get edit_product_path(valid_product1.id)
         must_redirect_to root_path
       end
     end
 
     describe "update" do
       it "redirects to the homepage when a logged out user tries to update a product" do
-        patch product_path( valid_product1.id )
+        patch product_path(valid_product1.id)
         must_redirect_to root_path
       end
     end
-
   end
 
   describe "logged in user" do
@@ -73,13 +69,12 @@ describe ProductsController do
 
     describe "show" do
       it "responds with success when given id exists when logged in" do
-
-        get product_path( valid_product1.id )
+        get product_path(valid_product1.id)
         must_respond_with :success
       end
 
       it "redirects to product index when given an invalid id when logged in" do
-        get product_path( -1 )
+        get product_path(-1)
         must_redirect_to products_path
       end
     end
@@ -98,14 +93,15 @@ describe ProductsController do
           product: {
             name: "trashgarbage",
             status: "active",
-            description: "nice and slimy, beautiful and rotten", 
+            description: "nice and slimy, beautiful and rotten",
+            category_ids: "1",
             price: 12,
             stock: 14,
             photo_url: "http://imgur.com/eggshells4life",
-            merchant_id: session[:merchant_id]
-          }
+            merchant_id: session[:merchant_id],
+          },
         }
-        expect { post products_path, params: product_hash }.must_differ 'Product.count', 1
+        expect { post products_path, params: product_hash }.must_differ "Product.count", 1
         must_redirect_to product_path(Product.find_by(name: "trashgarbage").id)
       end
 
@@ -114,18 +110,18 @@ describe ProductsController do
           product: {
             name: "",
             status: "active",
-            description: "nice and slimy, beautiful and rotten", 
+            description: "nice and slimy, beautiful and rotten",
+            category_ids: "1, 2",
             price: 12,
             stock: 14,
             photo_url: "http://imgur.com/eggshells4life",
-            merchant_id: session[:merchant_id]
+            merchant_id: session[:merchant_id],
+          },
         }
-      }
 
-        expect { post products_path, params: product_hash }.must_differ 'Product.count', 0
+        expect { post products_path, params: product_hash }.must_differ "Product.count", 0
         must_respond_with :success
       end
-
     end
 
     describe "edit" do
@@ -137,39 +133,39 @@ describe ProductsController do
     end
 
     describe "update" do
-
       before do
         @product = {
-          product:
-            {
-              name: "regular pumpkin with nibbles on top",
-              status: "active",
-              description: "work of art", 
-              price: 50,
-              stock: 1,
-              photo_url: "http://imgur.com/pumpkinbits",
-              merchant_id: session[:merchant_id]
-            }
-          }
+          product: {
+            name: "regular pumpkin with nibbles on top",
+            status: "active",
+            description: "work of art",
+            category_ids: "2",
+            price: 50,
+            stock: 1,
+            photo_url: "http://imgur.com/pumpkinbits",
+            merchant_id: session[:merchant_id],
+          },
+        }
 
         @invalid_product = {
           product: {
             name: "",
             status: "active",
-            description: "nice and slimy, beautiful and rotten", 
+            description: "nice and slimy, beautiful and rotten",
+            category_ids: "2",
             price: 12,
             stock: 14,
             photo_url: "http://imgur.com/eggshells4life",
-            merchant_id: session[:merchant_id]
+            merchant_id: session[:merchant_id],
+          },
         }
-      }
       end
 
       it "successfully updates with the parameters given and redirects to the correct product details page" do
         expect { patch product_path(valid_product3.id), params: @product }.must_differ "Product.count", 0
-        
+
         current_product = Product.find_by(id: valid_product3.id)
-        
+
         expect(current_product.name).must_equal @product[:product][:name]
         expect(current_product.price).must_equal @product[:product][:price]
 
@@ -179,7 +175,7 @@ describe ProductsController do
       it "does not update successfully when given invalid parameters" do
         expect { patch product_path(valid_product3.id), params: @invalid_product }.must_differ "Product.count", 0
         current_product = Product.find_by(id: valid_product3.id)
-        
+
         expect(current_product.name).must_equal valid_product3.name
         expect(current_product.price).must_equal valid_product3.price
 
@@ -187,5 +183,4 @@ describe ProductsController do
       end
     end
   end
-
 end
