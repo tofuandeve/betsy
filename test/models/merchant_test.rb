@@ -18,7 +18,16 @@ describe Merchant do
         merchant_id: valid_merchant1.id 
       )
       
-      valid_order = Order.create()
+      valid_order = Order.create(
+        buyer_email: "raccon@raccoon.net",
+        buyer_address: "123 raccoon way",
+        buyer_name: "Rocky Raccoon Jr.",
+        buyer_card: "12334577848",
+        card_expiration: "12/23",
+        cvv: "234",
+        zipcode: "98102"
+      )
+      
       @valid_orders << valid_order
       
       valid_order_item = OrderItem.new(quantity: 1)
@@ -30,33 +39,33 @@ describe Merchant do
   
   describe "orders method" do
     it "returns a list of all Order instances" do
-      orders = valid_merchant1.orders
+      orders = valid_merchant1.orders_by_status
       
       expect _(orders.length).must_equal Order.count
       expect(orders).must_be_instance_of Array
       orders.each do |order|
         expect(order).must_be_instance_of Order
+        expect _(order.status).must_equal "pending"
       end
     end
     
     it "returns a list of all Order instances by status" do
-      ["pending", "paid", "complete", "cancelled"].each do |new_status|
-        @valid_orders.each do |order|
-          order.update(status: new_status)
-        end
-
-        orders = valid_merchant1.orders(status: new_status)
-        expect(orders).must_be_instance_of Array
-
-        orders.each do |order_by_status|
-          expect(order_by_status).must_be_instance_of Order
-          expect _(order_by_status.status).must_equal new_status
-        end
+      orders = valid_merchant1.orders_by_status
+      statuses = ["paid", "complete", "cancelled"]
+      
+      statuses.length.times do |index|
+        new_status = statuses[index]
+        orders[index].update(status: new_status)
+        
+        filtered_orders = valid_merchant1.orders_by_status(new_status)
+        
+        expect(filtered_orders.length).must_equal 1
+        expect(filtered_orders.first.status).must_equal new_status
       end
     end
     
     it "returns an empty array if merchant doesn't have any order" do
-      orders = valid_merchant2.orders
+      orders = valid_merchant2.orders_by_status
       
       expect(orders).must_be_instance_of Array
       assert(orders.empty?)

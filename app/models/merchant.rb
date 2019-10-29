@@ -14,19 +14,19 @@ class Merchant < ApplicationRecord
     return merchant
   end
   
-  def orders(status = nil)
+  def orders_by_status(status = nil)
     orders = []
-
-    self.products.each do |product|
+    
+    self.products.each do |product|   
       product.order_items.each do |item|
         if status
-          orders << item.order if (item.order.status == status)
+          orders << item.order if (item.order.status == status) && !orders.include?(item.order)
         else
           orders << item.order
         end
       end
     end
-    
+
     return orders
   end
 end
