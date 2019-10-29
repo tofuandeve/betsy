@@ -75,7 +75,7 @@ private
   end
 
   def product_params
-    return params.require(:product).permit(:name, :status, :description, :price, :stock, :photo_url)
+    return params.require(:product).permit(:name, :status, :description, :price, :stock, :photo_url, :merchant_id)
   end
 
 end
