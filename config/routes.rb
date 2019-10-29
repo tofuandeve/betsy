@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   resources :merchants, except: [:index, :edit, :update]
   resources :products, except: [:destroy]
-  
+
   get "/merchants/current", to: "merchants#current", as: "current_merchant"
 
   # OAuth support
@@ -13,4 +13,5 @@ Rails.application.routes.draw do
   delete "/logout", to: "merchants#destroy", as: "logout"
 
   resources :orders
+  resources :categories
 end
