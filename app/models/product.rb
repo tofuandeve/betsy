@@ -7,12 +7,29 @@ class Product < ApplicationRecord
     return Product.where(status: "active")
   end
 
+  def decrease_stock
+    if self.stock > 0
+      self.stock -= 1
+      return true
+    else
+      return false
+    end
+  end
+
+  def toggle_retired
+    if self.status == "active"
+      self.status = "retired"
+    else
+      self.status = "active"
+    end
+  end
+
+  def in_stock?
+    if self.stock > 0
+      return true
+    else
+      return false
+    end
+  end
 end
-
-
-
- # def retire_product 
-  #   set product status to retire
-  # end
-
   
