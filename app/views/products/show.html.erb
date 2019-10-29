@@ -1,0 +1,15 @@
+
+
+<section>
+<%= image_tag(@product.photo_url, alt: "Picture of #{@product.name}") %>
+</section>
+
+<section class="card text-center">
+  <div class="card-body">
+    <h3 class="card-title"><%= @product.name%></h3>
+      <p class="card-text"><%= @product.description%></p>
+      <p><%= link_to "Place item in cart", edit_product_path, class: "btn btn-primary" %></p>
+  </div>
+</section>
+
+

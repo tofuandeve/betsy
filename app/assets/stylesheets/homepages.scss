@@ -1,3 +1,24 @@
 // Place all the styles related to the Homepages controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.center {
+    text-align: center;
+}
+
+.btn-primary {
+    background-color: purple;
+    border-color: purple;/*set the color you want here*/
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
+    background-color: plum;
+    border-color: plum; /*set the color you want here*/
+}
+
+
+.fancy-header {
+    
+    justify-content: center;
+    text-align: center;
+}
