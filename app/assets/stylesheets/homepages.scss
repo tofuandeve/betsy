@@ -6,7 +6,24 @@
     text-align: center;
 }
 
-.booton {
+// .booton {
+//     background-color: purple;
+// }
+
+.btn-primary {
     background-color: purple;
+    border-color: purple;/*set the color you want here*/
 }
 
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
+    background-color: plum;
+    border-color: plum; /*set the color you want here*/
+}
+
+.card-container {
+    display: flex;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr; 
+    justify-content: space-between;
+    width: 60%;   
+}
