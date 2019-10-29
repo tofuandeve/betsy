@@ -13,7 +13,6 @@ class ProductsController < ApplicationController
   end
 
   def new
-    
     if session[:merchant_id] == nil
       flash[:error] = "You must be logged in to create a new product"
       redirect_to root_path
@@ -24,16 +23,15 @@ class ProductsController < ApplicationController
   end
 
   def create
-
     if session[:merchant_id] == nil
-      redirect_to root_path 
+      redirect_to root_path
       return
     else
       @product = Product.new(product_params)
       @product.status = "active"
       if @product.save
         flash[:success] = "Successfully created #{@product.name}"
-        redirect_to product_path( @product.id )
+        redirect_to product_path(@product.id)
         return
       else
         flash.now[:error] = "A problem occurred: Could not create #{@product.name}"
@@ -51,14 +49,13 @@ class ProductsController < ApplicationController
   end
 
   def update
-
     if session[:merchant_id] == nil
       redirect_to root_path
       return
     else
-      if @product.update( product_params )
+      if @product.update(product_params)
         flash[:success] = "Successfully updated #{@product.name}"
-        redirect_to product_path( @product.id )
+        redirect_to product_path(@product.id)
         return
       else
         flash[:error] = "A problem occurred and #{@product.name} could not be updated."
@@ -68,14 +65,13 @@ class ProductsController < ApplicationController
     end
   end
 
-private
+  private
 
   def find_product
     @product = Product.find_by(id: params[:id])
   end
 
   def product_params
-    return params.require(:product).permit(:name, :status, :description, :price, :stock, :photo_url, :merchant_id)
+    return params.require(:product).permit(:name, :status, :description, :price, :stock, :photo_url, :merchant_id, category_ids: [])
   end
-
 end

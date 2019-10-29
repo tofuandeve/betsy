@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   root :to => "homepages#index"
 
   get "/merchants/current", to: "merchants#current", as: "current_merchant"
-  
+
   # OAuth support
   get "/auth/github", as: "github_login"
   get "/auth/:provider/callback", to: "merchants#create", as: "auth_callback"
@@ -13,4 +13,5 @@ Rails.application.routes.draw do
   resources :products, except: [:destroy]
   resources :order_items
   resources :orders
+  resources :categories, only: [:new, :create]
 end
