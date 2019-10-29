@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   resources :merchants, except: [:index, :edit, :update]
   resources :products, except: [:destroy]
+  resources :order_items
   
   get "/merchants/current", to: "merchants#current", as: "current_merchant"
 
