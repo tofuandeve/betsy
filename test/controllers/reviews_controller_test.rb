@@ -76,42 +76,9 @@ describe ReviewsController do
 
         must_redirect_to products_path
       end
-      it "does not allow a guest user to create a review for a product that doesn't exist" do
-        @valid_product = products(:product1)
-
-        review_hash = {
-          review: {
-            rating: 4,
-            description: "kinda neat",
-          },
-        }
-
-        expect(@valid_product.reviews.count).must_equal 0
-
-        expect {
-          post product_reviews_path(-1), params: review_hash
-        }.must_differ "Review.count", 0
-
-        expect(@valid_product.reviews.count).must_equal 0
-      end
     end
   end
-  # it "cannot create a new review if logged in" do
-  #   product_id = Product.first.id
-  #   review_hash = {
-  #     review: {
-  #       rating: 4,
-  #       description: "kinda neat",
-  #       product_id: product_id,
-  #     },
-  #   }
 
-  #   expect {
-  #     post reviews_path(valid_product1), params: review_hash
-  #   }.must_differ "Review.count", 0
-
-  #   must_redirect_to products_path
-  # end
   describe "Logged in merchants" do
     describe "create" do
       before do
