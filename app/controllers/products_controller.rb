@@ -28,6 +28,7 @@ class ProductsController < ApplicationController
       return
     else
       @product = Product.new(product_params)
+      @product.merchant = Merchant.find_by(id: session[:merchant_id])
       @product.status = "active"
       if @product.save
         flash[:success] = "Successfully created #{@product.name}"
@@ -72,6 +73,6 @@ class ProductsController < ApplicationController
   end
 
   def product_params
-    return params.require(:product).permit(:name, :status, :description, :price, :stock, :photo_url, :merchant_id, category_ids: [])
+    return params.require(:product).permit(:name, :status, :description, :price, :stock, :photo_url, category_ids: [])
   end
 end
