@@ -1,15 +1,20 @@
 
 
 <section>
-<%= image_tag(@product.photo_url, alt: "Picture of #{@product.name}") %>
+<%= image_tag(@product.photo_url, alt: "Picture of #{@product.name}", class: "individual image-fluid center-block show-picture") %>
 </section>
 
 <section class="card text-center">
   <div class="card-body">
-    <h3 class="card-title"><%= @product.name%></h3>
+ 
+
+
+    <h3 class="card-title"><%= @product.name%></h3><% if session[:merchant_id] == @product.merchant_id %><%= link_to "Edit", edit_product_path, class: "edit" %><% end %>
       <p class="card-text"><%= @product.description%></p>
+      <p class="card-text">Number in Stock: <%= @product.stock%></p>
       <p><%= link_to "Place item in cart", add_to_cart_path(@product.id), method: :post, class: "btn btn-primary" %></p>
   </div>
 </section>
 
+ 
 

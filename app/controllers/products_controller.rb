@@ -28,7 +28,9 @@ class ProductsController < ApplicationController
       return
     else
       @product = Product.new(product_params)
+      @product.merchant = Merchant.find_by(id: session[:merchant_id])
       @product.status = "active"
+      @product.photo_url = "https://cdn.mos.cms.futurecdn.net/YYH9o4wmSXJfvbzRTq5BTY-1024-80.jpg" if @product.photo_url.empty?
       if @product.save
         flash[:success] = "Successfully created #{@product.name}"
         redirect_to product_path(@product.id)
@@ -54,6 +56,7 @@ class ProductsController < ApplicationController
       return
     else
       if @product.update(product_params)
+        @product.update_attrributes(photo_url: "https://cdn.mos.cms.futurecdn.net/YYH9o4wmSXJfvbzRTq5BTY-1024-80.jpg") if @product.photo_url.empty?
         flash[:success] = "Successfully updated #{@product.name}"
         redirect_to product_path(@product.id)
         return
