@@ -1,6 +1,5 @@
 
 
-
 <%= form_with model: @products, class: product_form_class do |f| %>
 <% @product.errors.full_messages.each do |message| %>
     <p><%= message %></p>
@@ -37,7 +36,7 @@
   <%= f.label :categories %>
   <%= collection_check_boxes(:product, :category_ids, Category.all, :id, :name) %>
   </div>
-<%= f.submit submit_button_label, class: "product-form-button" %>
+<%= f.submit submit_button_label, class: "product-form-button btn btn-primary" %>
 
 <% end %>
 
