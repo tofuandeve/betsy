@@ -30,7 +30,7 @@ describe Product do
   end
 
   describe "increase_stock" do
-    it "increases the given product's stock by 1" do
+    it "increases the given product's stock by the given quantity" do
       current_product = products(:product1)
       expect(current_product.stock).must_equal 14
 
