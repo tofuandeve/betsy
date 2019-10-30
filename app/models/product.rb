@@ -3,6 +3,7 @@ class Product < ApplicationRecord
   has_many :order_items
   validates :name, presence: true
   has_and_belongs_to_many :categories
+  has_many :reviews
 
   def self.list_active
     return Product.where(status: "active")
