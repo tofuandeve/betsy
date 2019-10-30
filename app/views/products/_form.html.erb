@@ -1,0 +1,47 @@
+
+
+
+<%= form_with model: @products, class: product_form_class do |f| %>
+<% @product.errors.full_messages.each do |message| %>
+    <p><%= message %></p>
+<% end %>
+
+<section class="form-group">
+<%= f.label :name %>
+<%= f.text_field :name, class: "form-control" %>
+</section>
+
+<section class="form-group">
+<%= f.label :description %>
+<%= f.text_field :description, class: "form-control" %>
+</section>
+
+
+<section class="form-group">
+<%= f.label :price %>
+<%= f.text_field :price, class: "form-control" %>
+</section>
+
+<section class="form-group">
+<%= f.label :stock %>
+<%= f.text_field :stock, class: "form-control" %>
+</section>
+
+<section class="form-group">
+<%= f.label :photo_url %>
+<%= f.text_field :photo_url, class: "form-control" %>
+</section>
+
+
+<div>
+  <%= f.label :categories %>
+  <%= collection_check_boxes(:product, :category_ids, Category.all, :id, :name) %>
+  </div>
+<%= f.submit submit_button_label, class: "product-form-button" %>
+
+<% end %>
+
+  
+
+
+ 

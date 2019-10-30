@@ -1,1 +1,8 @@
-<h2></h2>
+
+<section class="page-header">
+<h2>Edit Product</h2>
+<small><%= @product.name %> currently selected</small>
+</section>
+
+<section class="container max-width 50%"
+<%= render partial: "form", locals: {submit_button_label: "Edit Product", product_form_class: "edit-product-form"} %>

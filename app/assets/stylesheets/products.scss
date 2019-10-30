@@ -6,3 +6,25 @@ img {
     width: 100%;
     object-fit: cover;
 }
+
+.center-block {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+ }
+
+ .show-picture {
+     width: 50%
+ }
+
+ .container {
+     max-width: 50%;
+     margin-top: 2em;
+     padding: 1em;
+ }
+
+ .page-header {
+     margin-top: 3em;
+     text-align: center;
+
+ }

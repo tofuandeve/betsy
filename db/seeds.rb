@@ -54,12 +54,33 @@ CSV.foreach(PRODUCT_FILE, :headers => true) do |row|
   end
 end
 
+CATEGORY_FILE = Rails.root.join('db', 'category_seeds.csv')
+puts "Loading raw category data from #{CATEGORY_FILE}"
+
+category_failures = []
+CSV.foreach(CATEGORY_FILE, :headers => true) do |row|
+  category = Category.new
+
+  category.name = row['name']
+
+  successful = category.save
+  if !successful
+    category_failures << category
+    puts "Failed to save category: #{category.inspect}"
+  else
+    puts "Created category: #{category.inspect}"
+  end
+end
+
+
 puts "Added #{Merchant.count} merchant records"
 puts "#{merchant_failures.length} merchants failed to save"
 
 puts "Added #{Product.count} product records"
 puts "#{product_failures.length} products failed to save"
 
+puts "Added #{Category.count} category records"
+puts "#{category_failures.length} categories failed to save"
 
 puts "Manually resetting PK sequence on each table"
 ActiveRecord::Base.connection.tables.each do |t|
