@@ -30,6 +30,7 @@ class ProductsController < ApplicationController
       @product = Product.new(product_params)
       @product.merchant = Merchant.find_by(id: session[:merchant_id])
       @product.status = "active"
+      @product.photo_url = "https://cdn.mos.cms.futurecdn.net/YYH9o4wmSXJfvbzRTq5BTY-1024-80.jpg" if @product.photo_url.empty?
       if @product.save
         flash[:success] = "Successfully created #{@product.name}"
         redirect_to product_path(@product.id)
