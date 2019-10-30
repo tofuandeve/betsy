@@ -18,6 +18,7 @@ class OrdersController < ApplicationController
   end
   
   def edit
+    @order = Order.find_by(id: params[:id])
   end
   
   def update
@@ -25,13 +26,34 @@ class OrdersController < ApplicationController
       
       if @order.update(order_params) # update certain attributes instead of everything at once
         flash[:success] = "order updated!"
-        redirect_to order_path(@order.id)
+        redirect_to edit_order_path(@order.id)
         return
       end
       flash.now[:error] = "Required fields cannot be blank!"
       render :edit
       return
     end
+  end
+  
+  def place_order
+    if session[:order_id]
+      @order = Order.find_by(id: session[:order_id])
+      successful = @order.checkout
+      
+      if successful
+        @order.update(status: 'paid')
+        flash[:success] = "Successfully placed order! Thanks for shopping with us!"
+      else
+        flash[:error] = "Failed to place order!"
+      end
+      
+      session[:order_id] = nil
+    else
+      flash[:error] = "Your cart is empty!"
+    end
+    
+    redirect_to root_path
+    return
   end
   
   def destroy
