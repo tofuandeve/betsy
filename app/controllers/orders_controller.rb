@@ -35,6 +35,27 @@ class OrdersController < ApplicationController
     end
   end
   
+  def place_order
+    if session[:order_id]
+      @order = Order.find_by(id: session[:order_id])
+      successful = @order.checkout
+      
+      if successful
+        @order.update(status: 'paid')
+        flash[:success] = "Successfully placed order! Thanks for shopping with us!"
+      else
+        flash[:error] = "Failed to place order!"
+      end
+      
+      session[:order_id] = nil
+    else
+      flash[:error] = "Your cart is empty!"
+    end
+    
+    redirect_to root_path
+    return
+  end
+  
   def destroy
     order = Order.find_by(id: params[:id])
     if order 

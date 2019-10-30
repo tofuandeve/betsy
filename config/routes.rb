@@ -9,6 +9,9 @@ Rails.application.routes.draw do
   get "/auth/:provider/callback", to: "merchants#create", as: "auth_callback"
   delete "/logout", to: "merchants#destroy", as: "logout"
   
+  post "/products/:id/addtocart", to: "order_items#create", as: "add_to_cart"
+  patch "/products/:id/placeorder", to: "orders#place_order", as: "place_order"
+
   resources :merchants, except: [:index, :edit, :update]
   resources :products, except: [:destroy]
   resources :order_items, except: [:show, :index]
