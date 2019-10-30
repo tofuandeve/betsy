@@ -20,15 +20,21 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-              <%= link_to "All Products", products_path, class: "nav-link" %>
+            <li class="nav-item">  
+            <%= link_to "All Products", products_path, class: "nav-link" %>  
             </li>
+            <% if session[:merchant_id] %>
+              <li class="nav-item">
+              <%= link_to "Create Product", new_product_path, class: "nav-link" %>
+              </li>
+            <% end %>
+
           </ul>
 
           <ul class="navbar-nav navbar-right">
             <% if session[:merchant_id]%>
               <li class="nav-item app-header__nav_item">
-                <%= link_to "Logged in as #{Merchant.find_by(id: session[:merchant_id])}", merchant_path(session[:merchant_id]), class: "nav-link" %>
+                <%= link_to "Logged in as #{(Merchant.find_by(id: session[:merchant_id]))}", merchant_path(session[:merchant_id]), class: "nav-link" %>
               </li>
               <li class="nav-item app-header__nav_item">
                 <%= link_to "Log out", logout_path, method: "delete" , class: "nav-link" %>
@@ -38,21 +44,27 @@
                 <%= link_to "Login with GitHub", github_login_path, class: "btn btn-primary" %>
               </li>
             <% end %>  
+            
+            <% cart = Order.find_by(id: session[:order_id])%>
+            <% if cart %>
+              <li class="nav-item app-header__nav_item">
+                <%= link_to "Cart (#{cart.order_items.count})", order_path(session[:order_id]), class: "nav-link" %> 
+              </li>
+            <% end %>
           </ul>
         </div>
       </nav>
     </header>
     
-<section>
-    <%= yield %>
+    <section>
+      <%= yield %>
     </section>
 
     <footer class="footer mt-auto py-3">
-    <div class="container">
-      <span class="text-muted">Copyright 2019   Art by Somebody I will find out</span>
-    </div>
-  </footer>
+      <div class="container">
+        <span class="text-muted">Copyright 2019   Art by Somebody I will find out</span>
+      </div>
+    </footer>
   </body>
 
- 
 </html>

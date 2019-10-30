@@ -108,7 +108,7 @@ describe OrdersController do
       expect _(existing_order.buyer_name).must_equal @order_hash[:order][:buyer_name]
       
       must_respond_with :redirect
-      must_redirect_to order_path(existing_order.id)  
+      must_redirect_to edit_order_path(existing_order.id)  
     end
     
     it "will redirect to root_path if given an invalid id" do

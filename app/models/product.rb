@@ -9,13 +9,26 @@ class Product < ApplicationRecord
     return Product.where(status: "active")
   end
 
-  def decrease_stock
-    if self.stock > 0
-      self.stock -= 1
+  def update_stock(quantity)
+    if quantity > 0
+      decrease_stock(quantity)
+    else
+      increase_stock(quantity)
+    end
+  end
+
+  def decrease_stock(quantity)
+    if self.stock >= quantity
+      self.stock -= quantity
       return true
     else
       return false
     end
+  end
+
+  def increase_stock(quantity)
+    self.stock += quantity
+    return true
   end
 
   def toggle_retired

@@ -16,6 +16,13 @@ Rails.application.routes.draw do
     resources :reviews, only: [:new, :create]
   end
   resources :order_items
+
+  post "/products/:id/addtocart", to: "order_items#create", as: "add_to_cart"
+  patch "/products/:id/placeorder", to: "orders#place_order", as: "place_order"
+
+  resources :merchants, except: [:index, :edit, :update]
+  resources :products, except: [:destroy]
+  resources :order_items, except: [:show, :index]
   resources :orders
   resources :categories, only: [:new, :create]
   # resources :reviews, only: [:index, :new]
