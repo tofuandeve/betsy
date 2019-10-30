@@ -1,3 +1,54 @@
-<main>
-  <h2>This is a show page for order!</h2>
-</main>
+<section>
+<br/>
+<br/> 
+<br/>  <%# I absolutely obviously do not know how to make this not overlap the nav bar :( HELP ME!%>
+  <h3>Shopping Cart</h3>
+  <% cart = Order.find_by(id: session[:order_id]) %>
+
+  <% if cart %>
+  <section>
+    <table>
+      <thead>
+        <tr>
+          <th>Product Name</th>
+          <th>Item Price</th>
+          <th>Quantity</th>
+          <th>Item Subtotal</th>
+          <th>Remove from Cart</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% cart.order_items.each do |order_item| %>
+        <tr>
+          <td><%= link_to order_item.product.name, product_path(order_item.product.id) %></td>
+          <td><%= order_item.product.price %> eggshells</td>
+          <td>
+            <%= form_for order_item do |f| %>
+              <%= f.select :quantity, (1..order_item.product.stock),{}, { value: order_item.quantity, onchange: 'this.form.submit();' }%>
+            <% end %>
+          </td>
+          <td>
+            <%subtotal = order_item.product.price * order_item.quantity%>
+            <%= subtotal %>
+          </td>
+          <td><%= link_to "Remove item", order_item_path(order_item), method: :delete, data: { confirm: "Are you sure you want to remove #{order_item.product.name} from the cart?" }, class: "btn btn-outline-danger" %>
+          </td>
+        </tr>
+        <%end%>
+      </tbody>
+    </table>
+</section>
+
+    <section>
+      <p>Subtotal: </p>
+      <p> Taxes:</p>
+      <p> Total:</p>
+      
+      <div>
+        <%= link_to "Checkout", edit_order_path(cart.id), class: "btn btn-info" %>
+      </div>
+    </section>
+  <% end %>
+
+</section>

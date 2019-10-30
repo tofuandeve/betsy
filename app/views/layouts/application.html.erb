@@ -38,21 +38,27 @@
                 <%= link_to "Login with GitHub", github_login_path, class: "btn btn-primary" %>
               </li>
             <% end %>  
+            
+            <% cart = Order.find_by(id: session[:order_id])%>
+            <% if cart %>
+              <li class="nav-item app-header__nav_item">
+                <%= link_to "Cart (#{cart.order_items.count})", order_path(session[:order_id]), class: "nav-link" %> 
+              </li>
+            <% end %>
           </ul>
         </div>
       </nav>
     </header>
     
-<section>
-    <%= yield %>
+    <section>
+      <%= yield %>
     </section>
 
     <footer class="footer mt-auto py-3">
-    <div class="container">
-      <span class="text-muted">Copyright 2019   Art by Somebody I will find out</span>
-    </div>
-  </footer>
+      <div class="container">
+        <span class="text-muted">Copyright 2019   Art by Somebody I will find out</span>
+      </div>
+    </footer>
   </body>
 
- 
 </html>
