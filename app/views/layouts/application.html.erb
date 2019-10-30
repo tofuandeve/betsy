@@ -20,9 +20,15 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-              <%= link_to "All Products", products_path, class: "nav-link" %>
+            <li class="nav-item">  
+            <%= link_to "All Products", products_path, class: "nav-link" %>  
             </li>
+            <% if session[:merchant_id] %>
+              <li class="nav-item">
+              <%= link_to "Create Product", new_product_path, class: "nav-link" %>
+              </li>
+            <% end %>
+
           </ul>
 
           <ul class="navbar-nav navbar-right">
