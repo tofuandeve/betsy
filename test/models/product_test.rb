@@ -12,11 +12,11 @@ describe Product do
   end
 
   describe "decrease_stock" do
-    it "decreases the given product's stock by 1" do
+    it "decreases the given product's stock by the given quantity" do
       current_product = products(:product1)
       expect(current_product.stock).must_equal 14
       
-      expect(current_product.decrease_stock).must_equal true
+      expect(current_product.decrease_stock(1)).must_equal true
       expect(current_product.stock).must_equal 13
     end
 
@@ -24,8 +24,18 @@ describe Product do
       current_product = products(:out_of_stock_product)
       expect(current_product.stock).must_equal 0
 
-      expect(current_product.decrease_stock).must_equal false
+      expect(current_product.decrease_stock(1)).must_equal false
       expect(current_product.stock).must_equal 0
+    end
+  end
+
+  describe "increase_stock" do
+    it "increases the given product's stock by 1" do
+      current_product = products(:product1)
+      expect(current_product.stock).must_equal 14
+
+      current_product.increase_stock(2)
+      expect(current_product.stock).must_equal 16
     end
   end
 
