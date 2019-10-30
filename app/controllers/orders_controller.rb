@@ -18,6 +18,7 @@ class OrdersController < ApplicationController
   end
   
   def edit
+    @order = Order.find_by(id: params[:id])
   end
   
   def update
@@ -25,7 +26,7 @@ class OrdersController < ApplicationController
       
       if @order.update(order_params) # update certain attributes instead of everything at once
         flash[:success] = "order updated!"
-        redirect_to order_path(@order.id)
+        redirect_to edit_order_path(@order.id)
         return
       end
       flash.now[:error] = "Required fields cannot be blank!"
