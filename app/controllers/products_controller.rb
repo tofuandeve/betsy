@@ -56,6 +56,7 @@ class ProductsController < ApplicationController
       return
     else
       if @product.update(product_params)
+        @product.update_attrributes(photo_url: "https://cdn.mos.cms.futurecdn.net/YYH9o4wmSXJfvbzRTq5BTY-1024-80.jpg") if @product.photo_url.empty?
         flash[:success] = "Successfully updated #{@product.name}"
         redirect_to product_path(@product.id)
         return
