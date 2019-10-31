@@ -23,6 +23,20 @@
             <li class="nav-item">  
             <%= link_to "All Products", products_path, class: "nav-link" %>  
             </li>
+            <li>
+              <div class="dropdown">
+                <%= link_to "Categories", "#", { "class": "nav-link dropdown-toggle", "role": "button", "id": "dropdownMenuLink", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false"}%>
+                <div class="dropdown-menu">
+                  <%Category.all.each do |category|%>
+                    <%= link_to category.name, category_products_path(category.id), class: "dropdown-item" %>
+                  <%end%>
+                  <% if session[:merchant_id] %>
+                    <%= link_to "Add new category +", new_category_path, class: "dropdown-item"%>
+                  <%end%>
+                </div>
+              </div>
+            </li>
+
             <% if session[:merchant_id] %>
               <li class="nav-item">
               <%= link_to "Create Product", new_product_path, class: "nav-link" %>
@@ -55,7 +69,36 @@
         </div>
       </nav>
     </header>
-    
+
+    <%if flash[:success]%> 
+      <section class="page-header alert__container">
+        <div class="alert alert-success">
+          <% flash.each do |name, message| %>
+            <span><%= message %></span>
+          <% end %>
+        </div>
+      </section>
+    <%end%>
+
+    <%if flash[:error]%>  
+      <section class="page-header alert__container">
+        <div class="alert alert-warning">  
+            <% flash.each do |name, message| %>
+              <span><%= message %></span>
+            <% end %>
+            <%[@order, @product, @category, @order_item, @merchant].each do |object| %>
+              <% if object && object.errors.any? %>  
+                <ul>
+                  <% object.errors.each do |column, message| %>
+                    <li><%= column.capitalize %> <%= message %></li>
+                  <% end %>
+                </ul>
+              <% end %>  
+            <%end%>      
+        </div>
+      </section>
+    <%end%>
+        
     <section>
       <%= yield %>
     </section>
