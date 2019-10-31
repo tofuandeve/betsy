@@ -32,3 +32,8 @@
 # Ignore simplecov and test data in simplecov report
 /coverage.data
 /coverage  
+
+# Ignore strange  cert files
+/ca_bundle.crt
+/certficate.crt
+/private.key

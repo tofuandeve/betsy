@@ -1,0 +1,14 @@
+review1:
+  product_id: 1
+  rating: 5
+  comment: Howdy
+
+review2:
+  product_id: 2
+  rating: 3
+  comment: Rowdy
+
+review3:
+  product_id: 3
+  rating: 2
+  comment: Trowdy
