@@ -1,9 +1,10 @@
 <main>
+  <h2 class="page-header">Customer Information</h2>
   <% cart = Order.find_by(id: session[:order_id])%>
   <%if cart%>
     <%if cart.buyer_card == nil %>
     
-      <section>
+      <section class="container">
         <%= form_with model: cart do |f| %>
           <div class="form-group">
             <%= f.label :buyer_email %>
@@ -32,12 +33,12 @@
 
           <div class="form-group">
             <%= f.label :cvv %>
-            <%= f.text_area :cvv, class: "form-control" %>
+            <%= f.text_field :cvv, class: "form-control" %>
           </div>
 
           <div class="form-group">
             <%= f.label :zipcode %>
-            <%= f.text_area :zipcode, class: "form-control" %>
+            <%= f.text_field :zipcode, class: "form-control" %>
           </div>
 
           <div class="form-group">
