@@ -14,6 +14,7 @@ class Merchant < ApplicationRecord
     return merchant
   end
   
+  # This also shows all of the merchant's orders if not given a parameter
   def orders_by_status(status = nil)
     orders = []
     
@@ -28,5 +29,26 @@ class Merchant < ApplicationRecord
     end
 
     return orders
+  end
+
+  def revenue_by_status(status = nil)
+    orders = self.orders_by_status(status)
+    earnings = []
+    orders.each do |order|
+      order.order_items.each do |item|
+        product = Product.find_by(id: item.product_id)
+        if product.merchant_id == self.id
+          earnings << item.item_subtotal
+        end
+      end
+    end
+
+    revenue = earnings.sum
+    return revenue
+  end
+
+  def number_of_orders_by_status(status)
+    orders = self.orders_by_status(status)
+    return orders.count
   end
 end
