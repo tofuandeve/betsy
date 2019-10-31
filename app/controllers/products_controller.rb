@@ -1,17 +1,22 @@
 class ProductsController < ApplicationController
   before_action :find_product, only: [:show, :edit, :update]
-
+  
   def index
-    @products = Product.list_active
+    if params[:category_id]
+      current_category = Category.find_by(id: params[:category_id])
+      @products = Product.list_active.select {|product| product.categories.include?(current_category)}
+    else
+      @products = Product.list_active
+    end
   end
-
+  
   def show
     if @product.nil?
       flash[:error] = "That product does not exist"
       redirect_to products_path
     end
   end
-
+  
   def new
     if session[:merchant_id] == nil
       flash[:error] = "You must be logged in to create a new product"
@@ -21,7 +26,7 @@ class ProductsController < ApplicationController
       @product = Product.new
     end
   end
-
+  
   def create
     if session[:merchant_id] == nil
       redirect_to root_path
@@ -42,14 +47,14 @@ class ProductsController < ApplicationController
       end
     end
   end
-
+  
   def edit
     if session[:merchant_id] == nil
       redirect_to root_path
       return
     end
   end
-
+  
   def update
     if session[:merchant_id] == nil
       redirect_to root_path
@@ -67,13 +72,13 @@ class ProductsController < ApplicationController
       end
     end
   end
-
+  
   private
-
+  
   def find_product
     @product = Product.find_by(id: params[:id])
   end
-
+  
   def product_params
     return params.require(:product).permit(:name, :status, :description, :price, :stock, :photo_url, :merchant_id, category_ids: [])
   end
