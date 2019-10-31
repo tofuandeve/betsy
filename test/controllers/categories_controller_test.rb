@@ -28,7 +28,7 @@ describe CategoriesController do
     end
 
     describe "new" do
-      it "responds with success for a logged-in Merhant" do
+      it "responds with success for a logged-in Merchant" do
         get new_category_path
 
         must_respond_with :success

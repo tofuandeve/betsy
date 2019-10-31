@@ -1,48 +1,48 @@
 product1:
- name: sloppy sandwich
- status: active
- description: nice and slimy, beautiful and rotten
- categories: Old Food
- price: 12
- stock: 14
- photo_url: http://imgur.com/eggshells4life
- merchant_id: 1
+  name: sloppy sandwich
+  status: active
+  description: nice and slimy, beautiful and rotten
+  categories: Old Food
+  price: 12
+  stock: 14
+  photo_url: http://imgur.com/eggshells4life
+  merchant: merchant1
 
 product2: 
- name: corn cob
- status: active
- description: delicious with nice fuzzies
- categories: Old Food, Whole Food
- price: 30
- stock: 2
- photo_url: http://imgur.com/corncobs
- merchant_id: 1
+  name: corn cob
+  status: active
+  description: delicious with nice fuzzies
+  categories: Old Food, Whole Food
+  price: 30
+  stock: 2
+  photo_url: http://imgur.com/corncobs
+  merchant: merchant2
 
 product3: 
- name: smashed pumpkin with face nibbles
- status: active
- description: work of art
- categories: Discarded Clothing
- price: 100
- stock: 1
- photo_url: http://imgur.com/pumpkinbits
- merchant_id: 1
+  name: smashed pumpkin with face nibbles
+  status: active
+  description: work of art
+  categories: Discarded Clothing
+  price: 100
+  stock: 1
+  photo_url: http://imgur.com/pumpkinbits
+  merchant: merchant1
 
 retired_product:
- name: aged canteloupe peel
- status: retired
- description: EXTRA Juicy and Delicious
- categories: Whole Food
- price: 14
- stock: 3
- photo_url: http://imgur.com/canteloupesies
- merchant_id: 1
+  name: aged canteloupe peel
+  status: retired
+  description: EXTRA Juicy and Delicious
+  categories: Whole Food
+  price: 14
+  stock: 3
+  photo_url: http://imgur.com/canteloupesies
+  merchant: merchant1
 
 out_of_stock_product:
- name: moldy peaches
- status: active
- description: a great band and an even greater fruit
- price: 12
- stock: 0
- photo_url: http://imgur.com/moldypeaches
- merchant_id: 1
+  name: moldy peaches
+  status: active
+  description: a great band and an even greater fruit
+  price: 12
+  stock: 0
+  photo_url: http://imgur.com/moldypeaches
+  merchant: merchant1

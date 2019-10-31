@@ -136,7 +136,7 @@ describe ProductsController do
       before do
         @product = {
           product: {
-            name: "regular pumpkin with nibbles on top",
+            name: "smashed pumpkin with face nibbles",
             status: "active",
             description: "work of art",
             category_ids: "2",
