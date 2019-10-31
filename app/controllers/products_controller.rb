@@ -3,8 +3,13 @@ class ProductsController < ApplicationController
   
   def index
     if params[:category_id]
-      current_category = Category.find_by(id: params[:category_id])
-      @products = Product.list_active.select {|product| product.categories.include?(current_category)}
+      @category = Category.find_by(id: params[:category_id])
+      if @category.nil?
+        flash[:error] = "Invalid category!"
+        redirect_to root_path
+        return
+      end
+      @products = Product.list_active.select {|product| product.categories.include?(@category)}
     else
       @products = Product.list_active
     end
