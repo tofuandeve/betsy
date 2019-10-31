@@ -26,6 +26,12 @@ class MerchantsController < ApplicationController
       redirect_to root_path
       return
     end
+
+    @all_orders = @merchant.orders_by_status
+    # @completed_orders = @merchant.order_by_status(complete)
+    # @pending_orders = @merchant.orders_by_status(pending)
+    # @pending_orders = @merchant.orders_by_status(cancelled)
+
   end
   
   def create
