@@ -99,17 +99,15 @@ describe Merchant do
     end
   end
 
-  describe "total_revenue" do
-    it "returns the total revenue when a merchant has multiple valid orderitems" do
-      expect(valid_merchant1.total_revenue).must_equal 142.0
-    end
-
-    it "returns 0 when the merchant doesn't have any products" do
-      expect(valid_merchant2.total_revenue).must_equal 0
-    end
-  end
-
   describe "revenue_by_status" do
+    it "returns the total revenue when not given a status and the merchant has multiple valid orderitems" do
+      expect(valid_merchant1.revenue_by_status).must_equal 142.0
+    end
+
+    it "returns 0 when not given a status the merchant doesn't have any products" do
+      expect(valid_merchant2.revenue_by_status).must_equal 0
+    end
+
     it "returns the total revenue of all the merchant's orders with the given valid status" do
       @valid_orders.each do |order|
         expect(order.status).must_equal "pending"

@@ -31,33 +31,7 @@ class Merchant < ApplicationRecord
     return orders
   end
 
-  def total_revenue
-    merchant_products = self.products
-
-    if merchant_products == nil
-      return 0
-    end
-
-    items = []
-    merchant_products.each do |product|
-      items << OrderItem.where(product_id: product.id)
-    end
-    items.flatten!
-
-    if items.empty?
-      return 0
-    end
-
-    earnings = []
-    items.each do |item|
-      earnings << item.item_subtotal
-    end
-
-    revenue = earnings.sum
-    return revenue
-  end
-
-  def revenue_by_status(status)
+  def revenue_by_status(status = nil)
     orders = self.orders_by_status(status)
     earnings = []
     orders.each do |order|
