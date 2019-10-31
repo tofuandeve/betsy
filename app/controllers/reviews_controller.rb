@@ -2,9 +2,6 @@
 class ReviewsController < ApplicationController
   before_action :find_product
 
-  def index
-  end
-
   def new
     if session[:merchant_id] == @product.merchant_id
       flash[:error] = "You cannot review your own product"
