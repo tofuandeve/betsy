@@ -5,6 +5,8 @@ class Product < ApplicationRecord
   has_many :reviews, dependent: :nullify
   
   validates :name, presence: true
+  validates :photo_url, presence: true, format: { with: /http:\/\/.*/, message: "Please enter a photo url beginning with 'https://'" }
+  validates :price, presence: true, numericality: { greater_than: 0 }, format: { with: /^[0-9]*\.?[0-9]*/, multiline: true, message: "Please enter a price using numbers" }
 
   def self.list_active
     return Product.where(status: "active")
