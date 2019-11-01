@@ -1,1 +1,14 @@
-<h2> Temporary new form </h2>
+<section class="page-header">
+    <h2>Create new category</h2>
+</section>
+
+<section class="container max-width 50%">
+    <%= form_with model: @category, url: categories_path do |f| %>
+        <section class="form-group">
+            <%= f.label :name %>
+            <%= f.text_field :name, class: "form-control" %>
+        </section>
+
+        <%= f.submit "Submit", class: "product-form-button btn btn-primary" %>
+    <% end %>
+</section>

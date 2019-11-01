@@ -4,21 +4,21 @@ class CategoriesController < ApplicationController
   def new
     @category = Category.new
   end
-
+  
   def create
     @category = Category.new(category_params)
-
+    
     if @category.save
       flash[:success] = "Successfully created new category."
-      redirect_to merchant_path(session[:merchant_id])
+      redirect_to root_path
     else
       flash.now[:error] = "Invalid entry. Please try again."
       render :new
     end
   end
-
+  
   private
-
+  
   def category_params
     return params.require(:category).permit(:name)
     #do we need to include the product_ids?

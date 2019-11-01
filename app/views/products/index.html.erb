@@ -8,6 +8,11 @@
   </div>
 </section>
 
+<section>
+  <%if @category %>
+    <h3><%=@category.name %></h3>
+  <%end%>
+</section>
 
 <section class="card-columns">
 <% @products.each do |product| %>
