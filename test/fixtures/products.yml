@@ -5,7 +5,7 @@ product1:
   categories: Old Food
   price: 12
   stock: 14
-  photo_url: http://imgur.com/eggshells4life
+  photo_url: https://i.imgur.com/D2QTyZT
   merchant: merchant1
 
 product2: 
@@ -15,7 +15,7 @@ product2:
   categories: Old Food, Whole Food
   price: 30
   stock: 2
-  photo_url: http://imgur.com/corncobs
+  photo_url: https://i.imgur.com/D2QTyZT
   merchant: merchant2
 
 product3: 
@@ -25,7 +25,7 @@ product3:
   categories: Discarded Clothing
   price: 100
   stock: 1
-  photo_url: http://imgur.com/pumpkinbits
+  photo_url: https://i.imgur.com/D2QTyZT
   merchant: merchant1
 
 retired_product:
@@ -35,7 +35,7 @@ retired_product:
   categories: Whole Food
   price: 14
   stock: 3
-  photo_url: http://imgur.com/canteloupesies
+  photo_url: https://i.imgur.com/D2QTyZT
   merchant: merchant1
 
 out_of_stock_product:
@@ -44,5 +44,5 @@ out_of_stock_product:
   description: a great band and an even greater fruit
   price: 12
   stock: 0
-  photo_url: http://imgur.com/moldypeaches
+  photo_url: https://i.imgur.com/D2QTyZT
   merchant: merchant1
