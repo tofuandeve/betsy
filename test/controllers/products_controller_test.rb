@@ -206,5 +206,11 @@ describe ProductsController do
         must_respond_with :success
       end
     end
+
+    describe "retire" do
+      it "logged in user can retired their product" do
+        # can't test now because there's no route for this action
+      end
+    end
   end
 end
