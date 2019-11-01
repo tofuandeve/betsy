@@ -1,0 +1,21 @@
+  # each order item with quantity and subtotal
+  # link to the item show page
+  # total price of order
+  # date/time order was placed
+  # current status of order
+
+  <section class="card page-header">
+      <div class="card-header order_number_title">
+        <p> Order Number:  <%= @order.id %></p>
+      </div
+      <div class="card-body">
+       <% @order.order_items.each do |item| %>    
+        <p class="card-title confirmation">Order Item:  <%= Product.find_by(id: item.product_id).name %></p>
+        <p class="card-text order-item">Quantity:  <%= "#{item.quantity}" %></p>
+        <p class="card-text order-item">Subtotal:  <%= "#{item.item_subtotal}" %></p>
+        <p class="card-text order-item">Status:  <%= "#{@status}" %></p>
+      <%end%>
+      <p><button type="button" class="btn btn-outline-primary btn-sm">View Item</button></p>
+      </div>
+</section>
+

@@ -18,8 +18,14 @@ li {
 }
 
 .cancel-btn-style {
-    color: red;
-    border-color:red;
+    color: #C81F1F;
+    border-color: #C81F1F;
+    width: 15%;
+}
+
+.shipped-btn-style {
+    color: forestgreen;
+    border-color:forestgreen;
     width: 15%;
 }
 
@@ -37,4 +43,10 @@ li {
 
 .tab-title {
     color: #254ED8;
+}
+
+.order-title {
+    font-weight: bold;
+    background-color: purple;
+    color: white;
 }

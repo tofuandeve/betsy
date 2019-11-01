@@ -1,6 +1,10 @@
 // Place all the styles related to the Orders controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.confirmation {
+    text-decoration: none;
+}
+
 
 .container {
     max-width: 50%;
@@ -10,3 +14,10 @@
     margin-top: 3em;
     text-align: center;
 }
+
+.order_number_title {
+    font-weight: bold;
+    background-color: purple;
+    color: white;
+}
+

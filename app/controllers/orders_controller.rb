@@ -78,16 +78,21 @@ class OrdersController < ApplicationController
   end
 
   def confirmation
+
+    @quantities = []
+    @subtotals = []
+    @products = []
+    
     @total_number_items = @order.order_items.length
-    @total_price = @subtotals.sum
-    @date_placed = @order.created_at
-    @status = @order.status
 
     @order.order_items.each do |item|
       @quantities << item.quantity
       @subtotals << item.item_subtotal
       @products << item.product
     end
+    @total_price = @subtotals.sum
+    @date_placed = @order.created_at
+    @status = @order.status
   end
 
 

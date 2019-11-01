@@ -22,7 +22,7 @@ Rails.application.routes.draw do
     resources :products, only: [:index]
   end
   
-  get "/orders/:id/confirmtion", to: "orders#confirmation", as: "confirmation"
+  get "/orders/:id/confirmation", to: "orders#confirmation", as: "confirmation"
   get "/orders/:id/buyer_info", to: "orders#buyer_info", as: "buyer_info"
 
   resources :products, except: [:destroy] 
