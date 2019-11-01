@@ -40,12 +40,10 @@
 </section>
 
     <section>
-      <p>Subtotal: </p>
-      <p> Taxes:</p>
-      <p> Total:</p>
+      <p class="sub"> Total:</p>
       
       <div>
-        <%= link_to "Checkout", edit_order_path(cart.id), class: "btn btn-info" %>
+      <p class="sub"><%= link_to "Checkout", edit_order_path(cart.id), class: "btn btn-info" %></p>
       </div>
     </section>
   <% end %>
