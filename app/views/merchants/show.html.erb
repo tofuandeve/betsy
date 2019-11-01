@@ -29,7 +29,8 @@
                   <li class="card-text order-item">Quantity:  <%=item.quantity%></li>
                   <li class="card-text order-item">Subtotal:  <%=item.item_subtotal%></li>
                   <li class="card-text order-item">Status: <%=item.shipped_status%> </li>
-                  <%=link_to "Change status", mark_shipped_path(item.id), method: :patch, class: "btn btn-outline-primary btn-sm cancel-btn-style" %>
+                  <% label = item.shipped_status == "not_shipped"? "Mark shipped" : "Mark not shipped"%>
+                  <%=link_to label, mark_shipped_path(item.id), method: :patch, class: "btn btn-outline-primary btn-sm cancel-btn-style" %>
                 </section>
                 <%end%>
               <% end %>
@@ -69,7 +70,8 @@
                   <li class="card-text order-item">Quantity:  <%=item.quantity%></li>
                   <li class="card-text order-item">Subtotal:  <%=item.item_subtotal%></li>
                   <li class="card-text order-item">Status: <%= item.shipped_status%> </li>
-                  <%=link_to "Change status", mark_shipped_path(item.id), method: :patch, class: "btn btn-outline-primary btn-sm cancel-btn-style" %>
+                  <% label = item.shipped_status == "not_shipped"? "Mark shipped" : "Mark not shipped"%>
+                  <%=link_to label, mark_shipped_path(item.id), method: :patch, class: "btn btn-outline-primary btn-sm cancel-btn-style" %>
                 <%end%>
               <% end %>
 
@@ -107,7 +109,8 @@
                   <li class="card-text order-item">Quantity:  <%=item.quantity%></li>
                   <li class="card-text order-item">Subtotal:  <%=item.item_subtotal%></li>
                   <li class="card-text order-item">Status: <%= item.shipped_status%> </li>
-                  <%=link_to "Change status", mark_shipped_path(item.id), method: :patch, class: "btn btn-outline-primary btn-sm cancel-btn-style" %>
+                  <% label = item.shipped_status == "not_shipped"? "Mark shipped" : "Mark not shipped"%>
+                  <%=link_to label, mark_shipped_path(item.id), method: :patch, class: "btn btn-outline-primary btn-sm cancel-btn-style" %>
                 <%end%>
               <% end %>
               
@@ -146,7 +149,8 @@
                   <li class="card-text order-item">Quantity:  <%=item.quantity%></li>
                   <li class="card-text order-item">Subtotal:  <%=item.item_subtotal%></li>
                   <li class="card-text order-item">Status: <%= item.shipped_status%> </li>
-                  <%=link_to "Change status", mark_shipped_path(item.id), method: :patch, class: "btn btn-outline-primary btn-sm cancel-btn-style" %>
+                  <% label = item.shipped_status == "not_shipped"? "Mark shipped" : "Mark not shipped"%>
+                  <%=link_to label, mark_shipped_path(item.id), method: :patch, class: "btn btn-outline-primary btn-sm cancel-btn-style" %>
                 <%end%>
               <% end %>
               
@@ -163,7 +167,7 @@
       </div>    
     </div>
   </div>
-    <div class="card">
+  <div class="card">
     <div class="card-header" id="headingFour">
       <h5 class="mb-0">
         <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseThree">
@@ -185,7 +189,8 @@
                   <li class="card-text order-item">Quantity:  <%=item.quantity%></li>
                   <li class="card-text order-item">Subtotal:  <%=item.item_subtotal%></li>
                   <li class="card-text order-item">Status: <%= item.shipped_status%> </li>
-                  <%=link_to "Change status", mark_shipped_path(item.id), method: :patch, class: "btn btn-outline-primary btn-sm cancel-btn-style" %>
+                  <% label = item.shipped_status == "not_shipped"? "Mark shipped" : "Mark not shipped"%>
+                  <%=link_to label, mark_shipped_path(item.id), method: :patch, class: "btn btn-outline-primary btn-sm cancel-btn-style" %>
                 <%end%>
               <% end %>
              
@@ -203,16 +208,16 @@
     </div>
   </div>
 
-    <div class="card">
+  <div class="card">
     <div class="card-header" id="headingFive">
       <h5 class="mb-0">
-        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFive" aria-expanded="true" aria-controls="collapseOne">
+        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
           Products
         </button>
       </h5>
     </div>
 
-    <div id="collapseFive" class="collapse show" aria-labelledby="headingFive" data-parent="#accordion">
+    <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordion">
       <div class="card-body">
         <ul class="tab-pane">
           <div class="card order-card" style="width 60%">
@@ -222,9 +227,10 @@
                   <li class="card-text order-item">Name:  <%=link_to product.name, product_path(product.id) %></li>
                   <li class="card-text order-item">Photo:  <%=image_tag(product.photo_url, alt: "Picture of #{product.name}")%></li>
                   <li class="card-text order-item">Inventory:  <%=product.stock%></li>
-                  <li class="card-text order-item">Status: <%=product.status%> <%=link_to "Retire product", retire_path(product.id), method: :patch, class: "btn btn-outline-primary btn-sm cancel-btn-style" %></li>
-                  <%=link_to "Change status", mark_shipped_path(item.id), method: :patch, class: "btn btn-outline-primary btn-sm cancel-btn-style" %>
+                  <li class="card-text order-item">Status: <%=product.status%> </li>
                 </section>
+                <% label = product.status == "retired"? "Mark active" : "Retire product"%>
+                <%=link_to label, retire_path(product.id), method: :patch, class: "btn btn-outline-primary btn-sm cancel-btn-style" %>
             <% end %>
           </div>
         </ul>
