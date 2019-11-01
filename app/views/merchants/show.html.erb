@@ -13,6 +13,9 @@
         <a href="#pending" class="nav-link tab-style" data-toggle="tab">Pending Orders</a>
     </li>
     <li class="nav-item">
+        <a href="#paid" class="nav-link tab-style" data-toggle="tab">Paid Orders</a>
+    </li>
+    <li class="nav-item">
         <a href="#completed" class="nav-link tab-style" data-toggle="tab"> Completed Orders</a>
     </li>
     <li class="nav-item">
@@ -25,68 +28,76 @@
 <ul class="tab-pane fade" id="total">
   <div class="card order-card" style="width 60%">
     <% @all_orders.each do |order| %>
-      <p class="card-title">Order Number:  <%= order.id %><button type="button" class="btn btn-outline-primary btn-sm edit-btn-style">Edit</button> </p>
+      <p class="card-title">Order Number:  <%= order.id %></p>
       <% order.order_items.each do |item| %>
-        <p class="card-text order-item"><%= Product.find_by(id: item.product_id).name %></p>
+        <li class="card-text order-item">Name:  <%= Product.find_by(id: item.product_id).name %></li>
+        <li class="card-text order-item">Quantity:  <%= "#{item.quantity}" %></li>
+        <li class="card-text order-item">Subtotal:  </li>
       <% end %>
       <p><button type="button" class="btn btn-outline-primary btn-sm cancel-btn-style">Cancel Order</button></p>
     <% end %>
   </div>
   </div>
 </ul>
-  
-<ul class="tab-pane fade" id="pending">
-    <div class="card order-card" style="width 60%">
-      <% @pending_orders.each do |order| %>
-        <p class="card-title">Order Number:  <%= order.id %><button type="button" class="btn btn-outline-primary btn-sm edit-btn-style">Edit</button> </p>
-          <% order.order_items.each do |item| %>
-          <p class="card-text order-item"><%= Product.find_by(id: item.product_id).name %></p
-        <% end %>
-        <p><button type="button" class="btn btn-outline-primary btn-sm cancel-btn-style">Cancel Order</button></p>
-      <% end %>
-    </div>
-  </div>
-</ul>
 
-<ul>
-  <div class="tab-pane fade" id="completed">
+<ul class="tab-pane fade" id="pending">
   <div class="card order-card" style="width 60%">
-  <% @pending_orders.each do |order| %>
-    <p class="card-title">Order Number:  <%= order.id %><button type="button" class="btn btn-outline-primary btn-sm edit-btn-style">Edit</button> </p>
+    <% @pending_orders.each do |order| %>
+      <p class="card-title">Order Number:  <%= order.id %></p>
       <% order.order_items.each do |item| %>
-      <p class="card-text order-item"><%= Product.find_by(id: item.product_id).name %></p
+        <li class="card-text order-item">Name:  <%= Product.find_by(id: item.product_id).name %></li>
+        <li class="card-text order-item">Quantity:  <%= "#{item.quantity}" %></li>
+        <li class="card-text order-item">Subtotal:  </li>
+      <% end %>
+      <p><button type="button" class="btn btn-outline-primary btn-sm cancel-btn-style">Cancel Order</button></p>
     <% end %>
-    <p><button type="button" class="btn btn-outline-primary btn-sm cancel-btn-style">Cancel Order</button></p>
-  <% end %>
-</div>
-</div>
-  </div>
-</ul>
-<ul>
-  <div class="tab-pane fade" id="cancelled">
-        < <div class="card order-card" style="width 60%">
-        <% @pending_orders.each do |order| %>
-          <p class="card-title">Order Number:  <%= order.id %><button type="button" class="btn btn-outline-primary btn-sm edit-btn-style">Edit</button> </p>
-            <% order.order_items.each do |item| %>
-            <p class="card-text order-item"><%= Product.find_by(id: item.product_id).name %></p
-          <% end %>
-          <p><button type="button" class="btn btn-outline-primary btn-sm cancel-btn-style">Cancel Order</button></p>
-        <% end %>
-      </div>
-      </div>
   </div>
 </ul>
 
-<ul class="tab-pane fade" id="pending">
-    <div class="card order-card" style="width 60%">
-      <% @pending_orders.each do |order| %>
-        <p class="card-title">Order Number:  <%= order.id %><button type="button" class="btn btn-outline-primary btn-sm edit-btn-style">Edit</button> </p>
-          <% order.order_items.each do |item| %>
-          <p class="card-text order-item"><%= Product.find_by(id: item.product_id).name %></p
-        <% end %>
-        <p><button type="button" class="btn btn-outline-primary btn-sm cancel-btn-style">Cancel Order</button></p>
+<ul class="tab-pane fade" id="paid">
+  <div class="card order-card" style="width 60%">
+    <% @paid_orders.each do |order| %>
+      <p class="card-title">Order Number:  <%= order.id %></p>
+      <% order.order_items.each do |item| %>
+        <li class="card-text order-item">Name:  <%= Product.find_by(id: item.product_id).name %></li>
+        <li class="card-text order-item">Quantity:  <%= "#{item.quantity}" %></li>
+        <li class="card-text order-item">Subtotal:  </li>
       <% end %>
-    </div>
+      <p><button type="button" class="btn btn-outline-primary btn-sm cancel-btn-style">Cancel Order</button></p>
+    <% end %>
   </div>
 </ul>
+
+<ul class="tab-pane fade" id="completed">
+  <div class="card order-card" style="width 60%">
+    <% @completed_orders.each do |order| %>
+      <p class="card-title">Order Number:  <%= order.id %></p>
+      <% order.order_items.each do |item| %>
+        <li class="card-text order-item">Name:  <%= Product.find_by(id: item.product_id).name %></li>
+        <li class="card-text order-item">Quantity:  <%= "#{item.quantity}" %></li>
+        <li class="card-text order-item">Subtotal:  </li>
+      <% end %>
+      <p><button type="button" class="btn btn-outline-primary btn-sm cancel-btn-style">Cancel Order</button></p>
+    <% end %>
+  </div>
+</ul>
+
+<ul class="tab-pane fade" id="cancelled">
+  <div class="card order-card" style="width 60%">
+    <% @cancelled_orders.each do |order| %>
+      <p class="card-title">Order Number:  <%= order.id %></p>
+      <% order.order_items.each do |item| %>
+        <li class="card-text order-item">Name:  <%= Product.find_by(id: item.product_id).name %></li>
+        <li class="card-text order-item">Quantity:  <%= "#{item.quantity}" %></li>
+        <li class="card-text order-item">Subtotal:  </li>
+      <% end %>
+      <p><button type="button" class="btn btn-outline-primary btn-sm cancel-btn-style">Cancel Order</button></p>
+    <% end %>
+  </div>
+</ul>
+
+
 </div>
+
+
+
