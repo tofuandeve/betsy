@@ -1,5 +1,6 @@
 <section>
 
+
   <h3  class="order-show-header">Shopping Cart</h3>
   <% cart = Order.find_by(id: session[:order_id]) %>
 
@@ -8,20 +9,20 @@
     <table>
       <thead>
         <tr>
-          <th>Product Name</th>
-          <th>Item Price</th>
-          <th>Quantity</th>
-          <th>Item Subtotal</th>
-          <th>Remove from Cart</th>
+          <th class="td">Product Name</th>
+          <th class="td">Item Price</th>
+          <th class="td">Quantity</th>
+          <th class="td">Item Subtotal</th>
+          <th class="td">Remove from Cart</th>
         </tr>
       </thead>
 
       <tbody>
         <% cart.order_items.each do |order_item| %>
         <tr>
-          <td><%= link_to order_item.product.name, product_path(order_item.product.id) %></td>
-          <td><%= order_item.product.price %> eggshells</td>
-          <td>
+          <td class="td"><%= link_to order_item.product.name, product_path(order_item.product.id) %></td>
+          <td class="td"><%= order_item.product.price %> eggshells</td>
+          <td class="td">
             <%= form_for order_item do |f| %>
               <%= f.select :quantity, (1..order_item.product.stock),{}, { value: order_item.quantity, onchange: 'this.form.submit();' }%>
             <% end %>
