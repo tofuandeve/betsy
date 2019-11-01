@@ -14,6 +14,23 @@
       <p class="card-text">Cost: <%= @product.price %> Eggshells</p>
       <p class="card-text">Number in Stock: <%= @product.stock%></p>
       <p><%= link_to "Place item in cart", add_to_cart_path(@product.id), method: :post, class: "btn btn-primary" %></p>
+      <p><%= link_to "Review Product", new_product_review_path(@product.id), method: :get, class: "btn btn-primary" %></p>
+
+  </div>
+  <div class="card-body">
+<h3 class="card-title"><%= "Product Reviews" %></h3>
+  <% @product.reviews.each do |review|%>
+  <ul>
+      <li class="list-group-item">
+        <h4>
+           <% review.rating.times do  %>
+           <a> &#129437</a>
+           <% end %>
+           </p><%= review.rating %>/5</p>
+          <p><small class="top-ten__creator"><%="#{review.comment}"%> </small></p>
+        </h4>
+      </ul>
+      <% end %>
   </div>
 </section>
 
