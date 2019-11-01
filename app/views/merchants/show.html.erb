@@ -32,8 +32,13 @@
         <li class="card-text order-item">Name:  <%= Product.find_by(id: item.product_id).name %></li>
         <li class="card-text order-item">Quantity:  <%= "#{item.quantity}" %></li>
         <li class="card-text order-item">Subtotal:  </li>
+        <li class="card-text order-item">Status: <%= item.shipped_status%> </li>
+        <%=link_to "Change status", mark_shipped_path(item.id), method: :patch, class: "btn btn-outline-primary btn-sm cancel-btn-style" %>
       <% end %>
-      <p><button type="button" class="btn btn-outline-primary btn-sm cancel-btn-style">Cancel Order</button></p>
+      <%if order.status != "cancelled"%>
+        <p><button type="button" class="btn btn-outline-primary btn-sm cancel-btn-style">Cancel Order</button></p>
+        <%=link_to "Cancel order", cancel_path(order.id), method: :patch, class: "btn btn-outline-primary btn-sm cancel-btn-style" %>
+      <%end%>
     <% end %>
   </div>
   </div>
@@ -47,8 +52,13 @@
         <li class="card-text order-item">Name:  <%= Product.find_by(id: item.product_id).name %></li>
         <li class="card-text order-item">Quantity:  <%= "#{item.quantity}" %></li>
         <li class="card-text order-item">Subtotal:  </li>
+        <li class="card-text order-item">Status: <%= item.shipped_status%> </li>
+        <%=link_to "Change status", mark_shipped_path(item.id), method: :patch, class: "btn btn-outline-primary btn-sm cancel-btn-style" %>
       <% end %>
-      <p><button type="button" class="btn btn-outline-primary btn-sm cancel-btn-style">Cancel Order</button></p>
+      <%if order.status != "cancelled"%>
+        <p><button type="button" class="btn btn-outline-primary btn-sm cancel-btn-style">Cancel Order</button></p>
+        <%=link_to "Cancel order", cancel_path(order.id), method: :patch, class: "btn btn-outline-primary btn-sm cancel-btn-style" %>
+      <%end%>
     <% end %>
   </div>
 </ul>
@@ -61,8 +71,13 @@
         <li class="card-text order-item">Name:  <%= Product.find_by(id: item.product_id).name %></li>
         <li class="card-text order-item">Quantity:  <%= "#{item.quantity}" %></li>
         <li class="card-text order-item">Subtotal:  </li>
+        <li class="card-text order-item">Status: <%= item.shipped_status%> </li>
+        <%=link_to "Change status", mark_shipped_path(item.id), method: :patch, class: "btn btn-outline-primary btn-sm cancel-btn-style" %>
       <% end %>
-      <p><button type="button" class="btn btn-outline-primary btn-sm cancel-btn-style">Cancel Order</button></p>
+      <%if order.status != "cancelled"%>
+        <p><button type="button" class="btn btn-outline-primary btn-sm cancel-btn-style">Cancel Order</button></p>
+        <%=link_to "Cancel order", cancel_path(order.id), method: :patch, class: "btn btn-outline-primary btn-sm cancel-btn-style" %>
+      <%end%>
     <% end %>
   </div>
 </ul>
@@ -75,8 +90,13 @@
         <li class="card-text order-item">Name:  <%= Product.find_by(id: item.product_id).name %></li>
         <li class="card-text order-item">Quantity:  <%= "#{item.quantity}" %></li>
         <li class="card-text order-item">Subtotal:  </li>
+        <li class="card-text order-item">Status: <%= item.shipped_status%> </li>
+        <%=link_to "Change status", mark_shipped_path(item.id), method: :patch, class: "btn btn-outline-primary btn-sm cancel-btn-style" %>
       <% end %>
-      <p><button type="button" class="btn btn-outline-primary btn-sm cancel-btn-style">Cancel Order</button></p>
+      <%if order.status != "cancelled"%>
+        <p><button type="button" class="btn btn-outline-primary btn-sm cancel-btn-style">Cancel Order</button></p>
+        <%=link_to "Cancel order", cancel_path(order.id), method: :patch, class: "btn btn-outline-primary btn-sm cancel-btn-style" %>
+      <%end%>
     <% end %>
   </div>
 </ul>
@@ -89,8 +109,13 @@
         <li class="card-text order-item">Name:  <%= Product.find_by(id: item.product_id).name %></li>
         <li class="card-text order-item">Quantity:  <%= "#{item.quantity}" %></li>
         <li class="card-text order-item">Subtotal:  </li>
+        <li class="card-text order-item">Status: <%= item.shipped_status%> </li>
+        <%=link_to "Change status", mark_shipped_path(item.id), method: :patch, class: "btn btn-outline-primary btn-sm cancel-btn-style" %>
       <% end %>
-      <p><button type="button" class="btn btn-outline-primary btn-sm cancel-btn-style">Cancel Order</button></p>
+      <%if order.status != "cancelled"%>
+        <p><button type="button" class="btn btn-outline-primary btn-sm cancel-btn-style">Cancel Order</button></p>
+        <%=link_to "Cancel order", cancel_path(order.id), method: :patch, class: "btn btn-outline-primary btn-sm cancel-btn-style" %>
+      <%end%>
     <% end %>
   </div>
 </ul>
