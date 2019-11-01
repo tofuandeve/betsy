@@ -1,5 +1,5 @@
 <main>
-  <h2 class="page-header">Customer Information</h2>
+  <h2 class="order-show-header">Checkout</h2>
   <% cart = Order.find_by(id: session[:order_id])%>
   <%if cart%>
     <%if cart.buyer_card == nil %>
@@ -50,10 +50,8 @@
     <%else%>
 
       <section>
-        <p>Maybe show some summary information right here?</p>
-        <div>
-          <%= link_to "Place order", place_order_path(cart.id), method: :patch, class: "btn btn-info" %>
-        </div>
+        <p class="page-header">Are you sure you want to place this order?</p>
+        <p class="page-header"><%= link_to "Place order", place_order_path(cart.id), method: :patch, class: "btn btn-info" %></p>
       </section>
 
     <%end%>
