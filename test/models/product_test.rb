@@ -1,12 +1,123 @@
 require "test_helper"
 
 describe Product do
+  describe "validations" do
+    describe "name validation" do
+      it "is invalid without a title" do
+        product = products(:product1)
+        product.name = nil
+
+        # Act
+        result = product.valid?
+
+        # Assert
+        expect(result).must_equal false
+      end
+      it "is valid with a name" do
+        product = products(:product1)
+        product.name = "Shredded Flip-Flop"
+
+        # Act
+        result = product.valid?
+
+        # Assert
+        expect(result).must_equal true
+      end
+    end
+    describe "price validation" do
+      it "is invalid without a price" do
+        product2 = products(:product2)
+        product2.price = nil
+
+        # Act
+        result = product2.valid?
+
+        # Assert
+        expect(result).must_equal false
+      end
+      it "is invalid with a non-numerical price" do
+        product2 = products(:product2)
+        product2.price = "abc"
+
+        # Act
+        result = product2.valid?
+
+        # Assert
+        expect(result).must_equal false
+      end
+
+      it "is invalid with a price of 0" do
+        product2 = products(:product2)
+        product2.price = 0
+
+        # Act
+        result = product2.valid?
+
+        # Assert
+        expect(result).must_equal false
+      end
+
+      it "is invalid with a price less than 0" do
+        product2 = products(:product2)
+        product2.price = -1.25
+
+        # Act
+        result = product2.valid?
+
+        # Assert
+        expect(result).must_equal false
+      end
+
+      it "is valid with a numerical price greater than 0" do
+        product2 = products(:product2)
+        product2.price = 1.09
+
+        # Act
+        result = product2.valid?
+
+        # Assert
+        expect(result).must_equal true
+      end
+    end
+    describe "photo_url valdation" do
+      it "is invalid without a 'http' in the url" do
+        product3 = products(:product3)
+        product3.photo_url = "www.com"
+
+        # Act
+        result = product3.valid?
+
+        # Assert
+        expect(result).must_equal false
+      end
+      it "is valid with a 'http' in the url" do
+        product3 = products(:product3)
+        product3.photo_url = "http://www.com"
+
+        # Act
+        result = product3.valid?
+
+        # Assert
+        expect(result).must_equal true
+      end
+    end
+  end
+
+  describe "relations" do
+    describe "merchant relation" do
+      it "can get the merchant through 'merchant'" do
+        current_product = products(:product1)
+        expect(current_product.merchant).must_be_instance_of Merchant
+      end
+    end
+  end
+
   describe "list_active" do
     it "does not list products with retired status" do
       products = Product.list_active
-    
+
       products.each do |product|
-        expect _(product.status).must_equal "active" 
+        expect _(product.status).must_equal "active"
       end
     end
   end
@@ -15,7 +126,7 @@ describe Product do
     it "decreases the given product's stock by the given quantity" do
       current_product = products(:product1)
       expect(current_product.stock).must_equal 14
-      
+
       expect(current_product.decrease_stock(1)).must_equal true
       expect(current_product.stock).must_equal 13
     end
@@ -60,7 +171,7 @@ describe Product do
       current_product = products(:product1)
       expect(current_product.in_stock?).must_equal true
     end
-    
+
     it "returns false if the current product is out of stock" do
       current_product = products(:out_of_stock_product)
       expect(current_product.in_stock?).must_equal false

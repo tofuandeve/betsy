@@ -4,7 +4,7 @@ describe Merchant do
   let(:valid_merchant1) { merchants(:merchant1) }
   let(:valid_merchant2) { merchants(:merchant2) }
   let(:valid_merchant3) { merchants(:merchant3) }
-  
+
   before do
     @valid_orders = []
     [products(:product1), products(:product2), products(:product3)].each do |product|
@@ -15,9 +15,9 @@ describe Merchant do
         price: product.price,
         stock: product.stock,
         photo_url: product.photo_url,
-        merchant_id: valid_merchant1.id 
+        merchant_id: valid_merchant1.id,
       )
-      
+
       valid_order = Order.create(
         buyer_email: "raccon@raccoon.net",
         buyer_address: "123 raccoon way",
@@ -25,11 +25,11 @@ describe Merchant do
         buyer_card: "12334577848",
         card_expiration: "12/23",
         cvv: "234",
-        zipcode: "98102"
+        zipcode: "98102",
       )
-      
+
       @valid_orders << valid_order
-      
+
       valid_order_item = OrderItem.new(quantity: 1)
       valid_order_item.product = valid_product
       valid_order_item.order = valid_order
@@ -44,7 +44,7 @@ describe Merchant do
       price: product.price,
       stock: product.stock,
       photo_url: product.photo_url,
-      merchant_id: valid_merchant3.id 
+      merchant_id: valid_merchant3.id,
     )
     @merchant3_order = Order.create(
       buyer_email: "raccon@raccoon.net",
@@ -53,7 +53,7 @@ describe Merchant do
       buyer_card: "12334577848",
       card_expiration: "12/23",
       cvv: "234",
-      zipcode: "98102"
+      zipcode: "98102",
     )
 
     @merchant3_order_item = OrderItem.new(quantity: 1)
@@ -61,12 +61,58 @@ describe Merchant do
     @merchant3_order_item.order = @merchant3_order
     @merchant3_order_item.save
   end
-  
+
+  describe "validations" do
+    describe "username validation" do
+      it "is invalid without a username" do
+        @merchant = merchants(:merchant1)
+        @merchant.username = nil
+
+        # Act
+        result = @merchant.valid?
+
+        # Assert
+        expect(result).must_equal false
+      end
+      it "is valid with a username" do
+        @merchant = merchants(:merchant1)
+        @merchant.username = "Rocky Raccoon"
+
+        # Act
+        result = @merchant.valid?
+
+        # Assert
+        expect(result).must_equal true
+      end
+    end
+    describe "email address" do
+      it "is invalid without a email" do
+        @merchant2 = merchants(:merchant2)
+        @merchant2.email = nil
+
+        # Act
+        result = @merchant2.valid?
+
+        # Assert
+        expect(result).must_equal false
+      end
+      it "is valid with an email" do
+        @merchant2 = merchants(:merchant2)
+        @merchant2.email = "bandit@bandit.dev"
+
+        # Act
+        result = @merchant2.valid?
+
+        # Assert
+        expect(result).must_equal true
+      end
+    end
+  end
   describe "order by status method" do
     it "returns a list of all Order instances for the given merchant and does not return orders belonging to other merchants" do
       orders = valid_merchant1.orders_by_status
       merchant3_orders = valid_merchant3.orders_by_status
-      
+
       expect _(orders.length).must_equal 3
       expect(merchant3_orders.length).must_equal 1
       expect(orders).must_be_instance_of Array
@@ -75,25 +121,25 @@ describe Merchant do
         expect _(order.status).must_equal "pending"
       end
     end
-    
+
     it "returns a list of all Order instances by status" do
       orders = valid_merchant1.orders_by_status
       statuses = ["paid", "complete", "cancelled"]
-      
+
       statuses.length.times do |index|
         new_status = statuses[index]
         orders[index].update(status: new_status)
-        
+
         filtered_orders = valid_merchant1.orders_by_status(new_status)
-        
+
         expect(filtered_orders.length).must_equal 1
         expect(filtered_orders.first.status).must_equal new_status
       end
     end
-    
+
     it "returns an empty array if merchant doesn't have any order" do
       orders = valid_merchant2.orders_by_status
-      
+
       expect(orders).must_be_instance_of Array
       assert(orders.empty?)
     end
