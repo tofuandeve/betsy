@@ -121,7 +121,7 @@ describe ProductsController do
             category_ids: "1",
             price: 12,
             stock: 14,
-            photo_url: "http://imgur.com/eggshells4life",
+            photo_url: "https://imgur.com/eggshells4life",
             merchant_id: session[:merchant_id],
           },
         }
@@ -138,7 +138,7 @@ describe ProductsController do
             category_ids: "1, 2",
             price: 12,
             stock: 14,
-            photo_url: "http://imgur.com/eggshells4life",
+            photo_url: "https://imgur.com/eggshells4life",
             merchant_id: session[:merchant_id],
           },
         }
@@ -166,7 +166,7 @@ describe ProductsController do
             category_ids: "2",
             price: 50,
             stock: 1,
-            photo_url: "http://imgur.com/pumpkinbits",
+            photo_url: "https://imgur.com/pumpkinbits",
             merchant_id: session[:merchant_id],
           },
         }
@@ -179,7 +179,7 @@ describe ProductsController do
             category_ids: "2",
             price: 12,
             stock: 14,
-            photo_url: "http://imgur.com/eggshells4life",
+            photo_url: "https://imgur.com/eggshells4life",
             merchant_id: session[:merchant_id],
           },
         }
