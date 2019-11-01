@@ -1,7 +1,6 @@
 require "test_helper"
 
 describe OrderItem do
-
   describe "item_subtotal" do
     let(:valid_merchant1) { merchants(:merchant1) }
     let(:valid_merchant2) { merchants(:merchant2) }
@@ -15,9 +14,9 @@ describe OrderItem do
         price: product.price,
         stock: product.stock,
         photo_url: product.photo_url,
-        merchant_id: valid_merchant1.id 
+        merchant_id: valid_merchant1.id,
       )
-        
+
       valid_order = Order.create(
         buyer_email: "raccon@raccoon.net",
         buyer_address: "123 raccoon way",
@@ -25,9 +24,9 @@ describe OrderItem do
         buyer_card: "12334577848",
         card_expiration: "12/23",
         cvv: "234",
-        zipcode: "98102"
+        zipcode: "98102",
       )
-        
+
       @valid_order_item = OrderItem.new(quantity: 3)
       @valid_order_item.product = valid_product
       @valid_order_item.order = valid_order
@@ -55,15 +54,60 @@ describe OrderItem do
     it "returns 0 when the product price is nil" do
       @valid_order_item.product.price = nil
       @valid_order_item.product.save
-      
+
       expect(@valid_order_item.item_subtotal).must_equal 0
     end
 
     it "returns 0 when the product price is not a number" do
       @valid_order_item.product.price = "abc"
       @valid_order_item.product.save
-      
+
       expect(@valid_order_item.item_subtotal).must_equal 0
+    end
+  end
+
+  describe "toggle_shipped" do
+    let(:valid_merchant1) { merchants(:merchant1) }
+    let(:valid_merchant2) { merchants(:merchant2) }
+
+    before do
+      product = products(:product1)
+      valid_product = Product.create(
+        name: product.name,
+        status: product.status,
+        description: product.description,
+        price: product.price,
+        stock: product.stock,
+        photo_url: product.photo_url,
+        merchant_id: valid_merchant1.id,
+      )
+
+      valid_order = Order.create(
+        buyer_email: "raccon@raccoon.net",
+        buyer_address: "123 raccoon way",
+        buyer_name: "Rocky Raccoon Jr.",
+        buyer_card: "12334577848",
+        card_expiration: "12/23",
+        cvv: "234",
+        zipcode: "98102",
+      )
+
+      @valid_order_item = OrderItem.new(quantity: 3)
+      @valid_order_item.product = valid_product
+      @valid_order_item.order = valid_order
+      @valid_order_item.save
+    end
+    it "changes the order_item's status to shipped if it was previously not_shipped" do
+      expect(@valid_order_item.shipped_status).must_equal "not_shipped"
+      @valid_order_item.toggle_shipped
+      expect(@valid_order_item.shipped_status).must_equal "shipped"
+    end
+
+    it "changes the product's status to active if it was previously retired" do
+      @valid_order_item.toggle_shipped
+      expect(@valid_order_item.shipped_status).must_equal "shipped"
+      @valid_order_item.toggle_shipped
+      expect(@valid_order_item.shipped_status).must_equal "not_shipped"
     end
   end
 end
