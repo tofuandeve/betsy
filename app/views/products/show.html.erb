@@ -1,15 +1,13 @@
 
 
 <section>
+<h3 class="product-show-header"><%= @product.name%></h3><% if session[:merchant_id] == @product.merchant_id %><%= link_to "Edit", edit_product_path, class: "edit" %><% end %>
 <%= image_tag(@product.photo_url, alt: "Picture of #{@product.name}", class: "individual image-fluid center-block show-picture") %>
 </section>
 
 <section class="card text-center">
   <div class="card-body">
- 
 
-
-    <h3 class="card-title"><%= @product.name%></h3><% if session[:merchant_id] == @product.merchant_id %><%= link_to "Edit", edit_product_path, class: "edit" %><% end %>
       <p class="card-text"><%= @product.description%></p>
       <p class="card-text">Cost: <%= @product.price %> Eggshells</p>
       <p class="card-text">Number in Stock: <%= @product.stock%></p>
@@ -24,7 +22,6 @@
       <li class="list-group-item">
         <h4>
            <% review.rating.times do  %>
-           <a> &#129437</a>
            <% end %>
            </p><%= review.rating %>/5</p>
           <p><small class="top-ten__creator"><%="#{review.comment}"%> </small></p>

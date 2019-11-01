@@ -78,10 +78,10 @@ class OrdersController < ApplicationController
   end
   
   def buyer_info
-    @user_name = @order.buyer_name
+    @username = @order.buyer_name
     @email = @order.buyer_email
     @mailing_address = @order.buyer_address
-    @four_digits = @order.buyer_card.slice(-1..-4)
+    @four_digits = @order.buyer_card[-4..-1]
     @cc_exp = @order.card_expiration
   end
   

@@ -1,8 +1,6 @@
 <section>
-<br/>
-<br/> 
-<br/>  <%# I absolutely obviously do not know how to make this not overlap the nav bar :( HELP ME!%>
-  <h3>Shopping Cart</h3>
+
+  <h3  class="order-show-header">Shopping Cart</h3>
   <% cart = Order.find_by(id: session[:order_id]) %>
 
   <% if cart %>
