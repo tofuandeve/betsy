@@ -1,0 +1,11 @@
+<section class="card page-header">
+<div class="card-title page-header buyer-header">
+  <p class="buyer-header"><%= @username %></p>
+</div
+<div class="card-body">   
+  <p class="card-text order-item contact-body">Email:  <%= "#{@email}" %></p>
+  <p class="card-text order-item contact-body">Mailing Address:  <%= "#{@mailing_address}" %></p>
+  <p class="card-text order-item contact-body">Credit Card Number:  **** **** **** <%= "#{@four_digits}" %></p>
+  <p class="card-text order-item contact-body">Credit Card Expiration:  <%= "#{@cc_exp}" %></p>
+</div>
+</section>

@@ -5,16 +5,16 @@
   # current status of order
 
   <section class="card page-header">
-      <div class="card-header order_number_title">
+      <div class="card-title buyer-header">
         <p> Order Number:  <%= @order.id %></p>
       </div
       <div class="card-body">
        <% @order.order_items.each do |item| %>    
-        <p class="card-title confirmation">Order Item:  <%= Product.find_by(id: item.product_id).name %></p>
-        <p class="card-text order-item">Quantity:  <%= "#{item.quantity}" %></p>
-        <p class="card-text order-item">Subtotal:  <%= "#{item.item_subtotal}" %></p>
-        <p class="card-text order-item">Status:  <%= "#{@status}" %></p>
-        <p class="card-text order-item">Purchased:  <%= readable_date(@date_placed)%></p>
+        <p class="card-text contact-body"><%= Product.find_by(id: item.product_id).name %></p>
+        <p class="card-text contact-body">Quantity:  <%= "#{item.quantity}" %></p>
+        <p class="card-text contact-body">Subtotal:  <%= "#{item.item_subtotal}" %></p>
+        <p class="card-text contact-body">Status:  <%= "#{@status}" %></p>
+        <p class="card-text contact-body">Purchased:  <%= readable_date(@date_placed)%></p>
       <%end%>
       <p><button type="button" class="btn btn-outline-primary btn-sm">View Item</button></p>
       </div>

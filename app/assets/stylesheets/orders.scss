@@ -5,6 +5,13 @@
     text-decoration: none;
 }
 
+.order-show-header {
+    color: white;
+    background-color: purple;
+    margin-top: 2em;
+    text-align: center;
+    padding: .5em;
+}
 
 .container {
     max-width: 50%;
@@ -19,5 +26,17 @@
     font-weight: bold;
     background-color: purple;
     color: white;
+}
+
+.buyer-header {
+    font-weight: bold;
+    background-color: purple;
+    color: white;
+    text-decoration: none;
+}
+
+.contact-body {
+    text-align: left;
+    margin-left: 5%;
 }
 

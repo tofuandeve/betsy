@@ -7,6 +7,19 @@ img {
     object-fit: cover;
 }
 
+.card-header {
+    color: white;
+    background-color: purple;
+        margin-top: 2em;
+}
+
+.product-show-header {
+    color: white;
+    background-color: purple;
+    margin-top: 2em;
+    text-align: center;
+}
+
 .center-block {
     display: block;
     margin-left: auto;
@@ -38,6 +51,10 @@ img {
 
  .card-text {
      padding-bottom:  1rem;
+ }
+
+ .show-picture {
+     margin-top: 5em;
  }
 
 
