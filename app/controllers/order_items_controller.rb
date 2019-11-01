@@ -1,5 +1,6 @@
 class OrderItemsController < ApplicationController
-  before_action :find_order, only: [:create, :update]
+  before_action :find_order, only: [:create, :update, :mark_shipped]
+  before_action :find_order_item, only: [:update, :mark_shipped]
   
   def create
     if @order.nil?
@@ -49,8 +50,6 @@ class OrderItemsController < ApplicationController
       return
     end
     
-    @order_item = OrderItem.find_by(id: params[:id])
-    
     if @order_item && @order_item.order_id == @order.id
       quantity_difference = @order_item.quantity_change(@order_item.order, params[:order_item][:quantity])
       @product = @order_item.product
@@ -83,9 +82,21 @@ class OrderItemsController < ApplicationController
     return
   end
   
+  def mark_shipped
+    @order_item.toggle_shipped
+    if @order_item.save && @order.order_items.all? {|item| item.status == "shipped"}
+      @order.change_status("complete")
+      @order.save
+    end
+  end
+  
   private
   
   def find_order
     @order = Order.find_by(id: session[:order_id])
+  end
+  
+  def find_order_item
+    @order_item = OrderItem.find_by(id: params[:id])
   end
 end

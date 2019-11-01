@@ -17,6 +17,8 @@ Rails.application.routes.draw do
 
   post "/products/:id/addtocart", to: "order_items#create", as: "add_to_cart"
   patch "/products/:id/placeorder", to: "orders#place_order", as: "place_order"
+  patch "/order_items/:id/mark_shipped", to: "order_items#mark_shipped", as: "mark_shipped"
+  patch "/orders/:id/cancel", to: "orders#cancel", as: "cancel"
 
   resources :merchants, except: [:index, :edit, :update] do 
     resources :products, only: [:index]
