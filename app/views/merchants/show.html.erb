@@ -26,72 +26,112 @@
   
 <ul class="tab-pane fade" id="total">
   <div class="card order-card" style="width 60%">
+    <div class="card-header order-title">
+      Total Orders
+    </div>
     <% @all_orders.each do |order| %>
       <p class="card-title">Order Number:  <%= order.id %></p>
       <% order.order_items.each do |item| %>
-        <li class="card-text order-item">Name:  <%= Product.find_by(id: item.product_id).name %></li>
-        <li class="card-text order-item">Quantity:  <%= "#{item.quantity}" %></li>
-        <li class="card-text order-item">Subtotal:  </li>
+        <%if item.product.merchant == @merchant%>
+          <li class="card-text order-item">Name:  <%= Product.find_by(id: item.product_id).name %></li>
+          <li class="card-text order-item">Quantity:  <%= "#{item.quantity}" %></li>
+          <li class="card-text order-item">Subtotal:  <%= "#{item.item_subtotal}" %></li>
+        <%end%>
       <% end %>
+    <section>
+      <p><button type="button" class="btn btn-outline-primary btn-sm shipped-btn-style">Mark as Shipped</button></p>
       <p><button type="button" class="btn btn-outline-primary btn-sm cancel-btn-style">Cancel Order</button></p>
+    </section>
     <% end %>
+    <p class="card-title">Total Revenue: <%= "#{@all_orders_revenue}" %> Eggshells</p>
   </div>
   </div>
 </ul>
 
 <ul class="tab-pane fade" id="pending">
   <div class="card order-card" style="width 60%">
+  <div class="card-header">
+  Pending Orders
+</div>
     <% @pending_orders.each do |order| %>
-      <p class="card-title">Order Number:  <%= order.id %></p>
+      <p class="card-title order-title">Order Number:  <%= order.id %></p>
       <% order.order_items.each do |item| %>
-        <li class="card-text order-item">Name:  <%= Product.find_by(id: item.product_id).name %></li>
-        <li class="card-text order-item">Quantity:  <%= "#{item.quantity}" %></li>
-        <li class="card-text order-item">Subtotal:  </li>
+        <%if item.product.merchant == @merchant%>
+          <li class="card-text order-item">Name:  <%= Product.find_by(id: item.product_id).name %></li>
+          <li class="card-text order-item">Quantity:  <%= "#{item.quantity}" %></li>
+          <li class="card-text order-item">Subtotal:  <%= "#{item.item_subtotal}" %></li>
+        <%end%>
       <% end %>
+      <p><button type="button" class="btn btn-outline-primary btn-sm shipped-btn-style">Mark as Shipped</button></p>
       <p><button type="button" class="btn btn-outline-primary btn-sm cancel-btn-style">Cancel Order</button></p>
     <% end %>
+    <p class="card-title">Total Revenue: <%= "#{@pending_orders_revenue}" %> Eggshells </p>
   </div>
 </ul>
 
 <ul class="tab-pane fade" id="paid">
   <div class="card order-card" style="width 60%">
+  <div class="card-header">
+  Paid Orders
+</div>
     <% @paid_orders.each do |order| %>
+     
       <p class="card-title">Order Number:  <%= order.id %></p>
       <% order.order_items.each do |item| %>
+        <%if item.product.merchant == @merchant%>
         <li class="card-text order-item">Name:  <%= Product.find_by(id: item.product_id).name %></li>
         <li class="card-text order-item">Quantity:  <%= "#{item.quantity}" %></li>
-        <li class="card-text order-item">Subtotal:  </li>
+        <li class="card-text order-item">Subtotal:  <%= "#{item.item_subtotal}" %></li>
+      <%end%>
       <% end %>
+      
+      <p><button type="button" class="btn btn-outline-primary btn-sm shipped-btn-style">Mark as Shipped</button></p>
       <p><button type="button" class="btn btn-outline-primary btn-sm cancel-btn-style">Cancel Order</button></p>
     <% end %>
+    <p class="card-title">Total Revenue: <%= "#{@paid_orders_revenue}" %> Eggshells </p>
   </div>
 </ul>
 
 <ul class="tab-pane fade" id="completed">
   <div class="card order-card" style="width 60%">
+  <div class="card-header">
+  Completed Orders
+</div>
     <% @completed_orders.each do |order| %>
+     
       <p class="card-title">Order Number:  <%= order.id %></p>
       <% order.order_items.each do |item| %>
+        <%if item.product.merchant == @merchant%>
         <li class="card-text order-item">Name:  <%= Product.find_by(id: item.product_id).name %></li>
         <li class="card-text order-item">Quantity:  <%= "#{item.quantity}" %></li>
-        <li class="card-text order-item">Subtotal:  </li>
+        <li class="card-text order-item">Subtotal:  <%= "#{item.item_subtotal}" %></li>
+      <%end%>
       <% end %>
+      <p><button type="button" class="btn btn-outline-primary btn-sm shipped-btn-style">Mark as Shipped</button></p>
       <p><button type="button" class="btn btn-outline-primary btn-sm cancel-btn-style">Cancel Order</button></p>
     <% end %>
+    <p class="card-title">Total Revenue: <%= "#{@completed_orders_revenue}" %> Eggshells </p>
   </div>
 </ul>
 
 <ul class="tab-pane fade" id="cancelled">
   <div class="card order-card" style="width 60%">
+  <div class="card-header">
+        Cancelled Orders
+      </div>
     <% @cancelled_orders.each do |order| %>
       <p class="card-title">Order Number:  <%= order.id %></p>
       <% order.order_items.each do |item| %>
-        <li class="card-text order-item">Name:  <%= Product.find_by(id: item.product_id).name %></li>
-        <li class="card-text order-item">Quantity:  <%= "#{item.quantity}" %></li>
-        <li class="card-text order-item">Subtotal:  </li>
+        <%if item.product.merchant == @merchant%>
+          <li class="card-text order-item">Name:  <%= Product.find_by(id: item.product_id).name %></li>
+          <li class="card-text order-item">Quantity:  <%= "#{item.quantity}" %></li>
+          <li class="card-text order-item">Subtotal:  <%= "#{item.item_subtotal}" %></li>
+        <%end%>
       <% end %>
+      <p><button type="button" class="btn btn-outline-primary btn-sm shipped-btn-style">Mark as Shipped</button></p>
       <p><button type="button" class="btn btn-outline-primary btn-sm cancel-btn-style">Cancel Order</button></p>
     <% end %>
+    <p class="card-title">Total Revenue: <%= "#{@cancelled_orders_revenue}" %> Eggshells </p>
   </div>
 </ul>
 

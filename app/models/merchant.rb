@@ -37,7 +37,8 @@ class Merchant < ApplicationRecord
     orders = self.orders_by_status(status)
     earnings = []
     orders.each do |order|
-      order.order_items.each do |item|
+      items = order.order_items.select {|item| item.product.merchant == self}
+      items.each do |item|
         product = Product.find_by(id: item.product_id)
         if product.merchant_id == self.id
           earnings << item.item_subtotal

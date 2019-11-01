@@ -32,6 +32,14 @@ class MerchantsController < ApplicationController
     @pending_orders = @merchant.orders_by_status("pending")
     @cancelled_orders = @merchant.orders_by_status("cancelled")
     @paid_orders = @merchant.orders_by_status("paid")
+    
+    @all_orders_revenue = @merchant.revenue_by_status
+    @completed_orders_revenue = @merchant.revenue_by_status("complete")
+    @pending_orders_revenue = @merchant.revenue_by_status("pending")
+    @cancelled_orders_revenue = @merchant.revenue_by_status("cancelled")
+    @paid_orders_revenue = @merchant.revenue_by_status("paid")
+    
+
   end
   
   def create

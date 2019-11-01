@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  before_action :find_order, only: [:edit, :update]
+  before_action :find_order, only: [:edit, :update, :confirmation, :buyer_info]
   
   def new
     @order = Order.new
@@ -69,6 +69,33 @@ class OrdersController < ApplicationController
     return
   end
   
+  def buyer_info
+    @user_name = @order.buyer_name
+    @email = @order.buyer_email
+    @mailing_address = @order.buyer_address
+    @four_digits = @order.buyer_card.slice(-1..-4)
+    @cc_exp = @order.card_expiration
+  end
+
+  def confirmation
+
+    @quantities = []
+    @subtotals = []
+    @products = []
+    
+    @total_number_items = @order.order_items.length
+
+    @order.order_items.each do |item|
+      @quantities << item.quantity
+      @subtotals << item.item_subtotal
+      @products << item.product
+    end
+    @total_price = @subtotals.sum
+    @date_placed = @order.created_at
+    @status = @order.status
+  end
+
+
   private
   
   def order_params
