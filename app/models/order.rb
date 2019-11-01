@@ -3,11 +3,11 @@ class Order < ApplicationRecord
   validates :buyer_email, presence: true, on: :update
   validates :buyer_address, presence: true, on: :update
   validates :buyer_name, presence: true, on: :update
-  validates :buyer_card, presence: true, on: :update
+  validates :buyer_card, presence: true, numericality: true, length: { minimum: 4 }, on: :update
   validates :card_expiration, presence: true, on: :update
   validates :cvv, presence: true, on: :update
   validates :zipcode, presence: true, on: :update
-  
+
   def find_order_item_by_product_id(product_id)
     self.order_items.each do |item|
       if item.product_id == product_id
@@ -16,7 +16,7 @@ class Order < ApplicationRecord
     end
     return nil
   end
-  
+
   def checkout
     items = self.order_items
     items.each do |item|
@@ -26,7 +26,7 @@ class Order < ApplicationRecord
     end
     return true
   end
-  
+
   def change_status(status)
     self.status = status
   end

@@ -117,7 +117,7 @@ describe ReviewsController do
           category_ids: ["#{@category.id}"],
           price: 12,
           stock: 14,
-          photo_url: "http://imgur.com/eggshells4life",
+          photo_url: "https://imgur.com/eggshells4life",
           merchant_id: @test_merchant.id,
         }
         review_hash = {

@@ -16,10 +16,10 @@ Rails.application.routes.draw do
   resources :order_items
 
   post "/products/:id/addtocart", to: "order_items#create", as: "add_to_cart"
+  patch "/products/:id/retire", to: "products#retire", as: "retire"
   patch "/orders/:id/placeorder", to: "orders#place_order", as: "place_order"
   patch "/order_items/:id/mark_shipped", to: "order_items#mark_shipped", as: "mark_shipped"
   patch "/orders/:id/cancel", to: "orders#cancel", as: "cancel"
-  # Where do I put retire button for product? Is it in the dashbard or in the product show page
 
   resources :merchants, except: [:index, :edit, :update] do 
     resources :products, only: [:index]
