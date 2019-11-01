@@ -61,7 +61,7 @@
           <ul class="navbar-nav navbar-right">
             <% if session[:merchant_id]%>
               <li class="nav-item app-header__nav_item">
-                <%= link_to "Logged in as #{(Merchant.find_by(id: session[:merchant_id]).username)}", merchant_path(session[:merchant_id]), class: "nav-link" %>
+                <%= link_to "Logged in as #{(Merchant.find_by(id: session[:merchant_id]))}", merchant_path(session[:merchant_id]), class: "nav-link" %>
               </li>
               <li class="nav-item app-header__nav_item">
                 <%= link_to "Log out", logout_path, method: "delete" , class: "nav-link" %>

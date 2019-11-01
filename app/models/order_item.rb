@@ -1,6 +1,7 @@
 class OrderItem < ApplicationRecord
   belongs_to :order
   belongs_to :product
+  validates :quantity, presence: true, numericality: { greater_than: 0, message: "Please enter a price using numbers" }
 
   def quantity_change(order, new_quantity)
     return new_quantity.to_i - self.quantity
