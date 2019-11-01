@@ -1,33 +1,102 @@
 <main class="content-container">
 <h2>
-    Merchant Summary <%= "#merchant.username"%>
+    Merchant Summary <%= "#{(Merchant.find_by(id: session[:merchant_id]).username)}"%>
 </h2>
 <p>Joined site<%= readable_date(@merchant.created_at) %></p>
 
-<section class="merchant-products__container">
-  <h3 class="merchant-products__header">Products</h3>
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a href="#total" class="nav-link tab-style" data-toggle="tab">Total Orders</a>
+    </li>
+    <li class="nav-item">
+        <a href="#pending" class="nav-link tab-style" data-toggle="tab">Pending Orders</a>
+    </li>
+    <li class="nav-item">
+        <a href="#paid" class="nav-link tab-style" data-toggle="tab">Paid Orders</a>
+    </li>
+    <li class="nav-item">
+        <a href="#completed" class="nav-link tab-style" data-toggle="tab"> Completed Orders</a>
+    </li>
+    <li class="nav-item">
+        <a href="#cancelled" class="nav-link tab-style" data-toggle="tab">Cancelled Orders</a>
+    </li>
+</ul>
+
+<div class="tab-content">
   
-<table class="table"> 
-<th> Product Name</th>
-<th> Current Inventory</th>
-<th> Amount Sold</th>
-<th> Category</th>
-<th> Price</th>
-<th> Date Listed</th>
+<ul class="tab-pane fade" id="total">
+  <div class="card order-card" style="width 60%">
+    <% @all_orders.each do |order| %>
+      <p class="card-title">Order Number:  <%= order.id %></p>
+      <% order.order_items.each do |item| %>
+        <li class="card-text order-item">Name:  <%= Product.find_by(id: item.product_id).name %></li>
+        <li class="card-text order-item">Quantity:  <%= "#{item.quantity}" %></li>
+        <li class="card-text order-item">Subtotal:  </li>
+      <% end %>
+      <p><button type="button" class="btn btn-outline-primary btn-sm cancel-btn-style">Cancel Order</button></p>
+    <% end %>
+  </div>
+  </div>
+</ul>
+
+<ul class="tab-pane fade" id="pending">
+  <div class="card order-card" style="width 60%">
+    <% @pending_orders.each do |order| %>
+      <p class="card-title">Order Number:  <%= order.id %></p>
+      <% order.order_items.each do |item| %>
+        <li class="card-text order-item">Name:  <%= Product.find_by(id: item.product_id).name %></li>
+        <li class="card-text order-item">Quantity:  <%= "#{item.quantity}" %></li>
+        <li class="card-text order-item">Subtotal:  </li>
+      <% end %>
+      <p><button type="button" class="btn btn-outline-primary btn-sm cancel-btn-style">Cancel Order</button></p>
+    <% end %>
+  </div>
+</ul>
+
+<ul class="tab-pane fade" id="paid">
+  <div class="card order-card" style="width 60%">
+    <% @paid_orders.each do |order| %>
+      <p class="card-title">Order Number:  <%= order.id %></p>
+      <% order.order_items.each do |item| %>
+        <li class="card-text order-item">Name:  <%= Product.find_by(id: item.product_id).name %></li>
+        <li class="card-text order-item">Quantity:  <%= "#{item.quantity}" %></li>
+        <li class="card-text order-item">Subtotal:  </li>
+      <% end %>
+      <p><button type="button" class="btn btn-outline-primary btn-sm cancel-btn-style">Cancel Order</button></p>
+    <% end %>
+  </div>
+</ul>
+
+<ul class="tab-pane fade" id="completed">
+  <div class="card order-card" style="width 60%">
+    <% @completed_orders.each do |order| %>
+      <p class="card-title">Order Number:  <%= order.id %></p>
+      <% order.order_items.each do |item| %>
+        <li class="card-text order-item">Name:  <%= Product.find_by(id: item.product_id).name %></li>
+        <li class="card-text order-item">Quantity:  <%= "#{item.quantity}" %></li>
+        <li class="card-text order-item">Subtotal:  </li>
+      <% end %>
+      <p><button type="button" class="btn btn-outline-primary btn-sm cancel-btn-style">Cancel Order</button></p>
+    <% end %>
+  </div>
+</ul>
+
+<ul class="tab-pane fade" id="cancelled">
+  <div class="card order-card" style="width 60%">
+    <% @cancelled_orders.each do |order| %>
+      <p class="card-title">Order Number:  <%= order.id %></p>
+      <% order.order_items.each do |item| %>
+        <li class="card-text order-item">Name:  <%= Product.find_by(id: item.product_id).name %></li>
+        <li class="card-text order-item">Quantity:  <%= "#{item.quantity}" %></li>
+        <li class="card-text order-item">Subtotal:  </li>
+      <% end %>
+      <p><button type="button" class="btn btn-outline-primary btn-sm cancel-btn-style">Cancel Order</button></p>
+    <% end %>
+  </div>
+</ul>
+
+
+</div>
 
 
 
-
-
-<tr>
-<td><%= "Mayonnaise" %></td>
-<td><%= "product.inventory" %></td>
-<td><%= "product.sold "%></td>
-<td><%= "product.category" %></td>
-<td><%= "product.price" %></td>
-<td><%= "product.created_at" %></td>
-
-</tr>
-</table>
-</section>
-</main>

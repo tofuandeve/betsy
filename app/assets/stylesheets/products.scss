@@ -31,10 +31,13 @@ img {
 
  .card-title {
      display: inline-block;
+     padding-top: 1em;
      padding-right: .5em;
+     text-decoration: underline;
  }
 
- .edit {
-     color: darkorchid;
-     
+ .card-text {
+     padding-bottom:  1rem;
  }
+
+

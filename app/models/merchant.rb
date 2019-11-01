@@ -14,7 +14,6 @@ class Merchant < ApplicationRecord
     return merchant
   end
   
-  # This also shows all of the merchant's orders if not given a parameter
   def orders_by_status(status = nil)
     orders = []
     
@@ -42,13 +41,13 @@ class Merchant < ApplicationRecord
         end
       end
     end
-
     revenue = earnings.sum
     return revenue
   end
-
+  
   def number_of_orders_by_status(status)
     orders = self.orders_by_status(status)
     return orders.count
   end
+
 end
