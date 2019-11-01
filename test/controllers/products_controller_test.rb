@@ -231,7 +231,7 @@ describe ProductsController do
         must_redirect_to product_path(@product.id)
       end
 
-      it "does not update a product's status and redirects to the home" do
+      it "does not update a product's status and redirects to the home when a merchant tries to retire another merchant's product" do
         expect _(valid_product3.status).must_equal "active"
         
         patch retire_path(valid_product3.id)
