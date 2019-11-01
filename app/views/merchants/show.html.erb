@@ -2,12 +2,7 @@
 <h2>
     Merchant Summary <%= "#{(Merchant.find_by(id: session[:merchant_id]).username)}"%>
 </h2>
-<<<<<<< HEAD
-=======
 <p>Joined site<%= readable_date(@merchant.created_at) %></p>
->>>>>>> master
-
-<p><%= "Joined site #{(Merchant.find_by(id: session[:merchant_id]).created_at)}" %></p>
 
 <ul class="nav nav-tabs">
     <li class="nav-item">
