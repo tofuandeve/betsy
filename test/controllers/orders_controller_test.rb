@@ -184,7 +184,7 @@ describe OrdersController do
       must_redirect_to root_path
     end
   end
-
+  
   describe "cancel" do
     before do
       @merchant = perform_login
@@ -194,7 +194,7 @@ describe OrdersController do
         description: "nice and slimy, beautiful and rotten",
         price: 12,
         stock: 14,
-        photo_url: "http://imgur.com/eggshells4life",
+        photo_url: "https://imgur.com/eggshells4life",
         merchant_id: @merchant.id
       )
       Order.destroy_all
@@ -214,13 +214,85 @@ describe OrdersController do
       )
       patch place_order_path(@order.id)
     end
-
+    
     it "a logged in user can cancel an order (very controversial thing to do but ok)" do
       order_id = @order.id
       expect _(Order.find_by(id: order_id).status).must_equal "paid"
       patch cancel_path(order_id)
-
+      
       expect _(Order.find_by(id: order_id).status).must_equal "cancelled"      
+    end
+  end
+  
+  describe "confirmation" do
+    before do
+      @merchant = perform_login
+      @product = Product.create( 
+        name: "trashgarbage",
+        status: "active",
+        description: "nice and slimy, beautiful and rotten",
+        price: 12,
+        stock: 14,
+        photo_url: "https://imgur.com/eggshells4life",
+        merchant_id: @merchant.id
+      )
+      Order.destroy_all
+      OrderItem.destroy_all
+      
+      post add_to_cart_path(@product.id)
+      @order = Order.first
+      @order_item = OrderItem.first 
+      @order.update(
+        buyer_email: "raccon@raccoon.net",
+        buyer_address: "123 raccoon way",
+        buyer_name: "Rocky Raccoon",
+        buyer_card: "12334577848",
+        card_expiration: "12/23",
+        cvv: "234",
+        zipcode: "98102"
+      )
+      patch place_order_path(@order.id)
+    end
+    
+    it "responds with success when directed to confirmation page" do
+      get confirmation_path(@order.id)
+      must_respond_with :success
+    end
+  end
+  
+  describe "buyer_info" do
+    before do
+      @merchant = perform_login
+      @product = Product.create( 
+        name: "trashgarbage",
+        status: "active",
+        description: "nice and slimy, beautiful and rotten",
+        price: 12,
+        stock: 14,
+        photo_url: "https://imgur.com/eggshells4life",
+        merchant_id: @merchant.id
+      )
+      Order.destroy_all
+      OrderItem.destroy_all
+      
+      post add_to_cart_path(@product.id)
+      @order = Order.first
+      @order_item = OrderItem.first 
+      @order.update(
+        buyer_email: "raccon@raccoon.net",
+        buyer_address: "123 raccoon way",
+        buyer_name: "Rocky Raccoon",
+        buyer_card: "12334577848",
+        card_expiration: "12/23",
+        cvv: "234",
+        zipcode: "98102"
+      )
+      patch place_order_path(@order.id)
+    end
+    
+    it "responds with success when directed to buyer info page by a logged in merchant" do
+      get buyer_info_path(@order.id)
+      must_respond_with :success
     end
   end
 end

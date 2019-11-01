@@ -80,7 +80,7 @@ describe Product do
       end
     end
     describe "photo_url valdation" do
-      it "is invalid without a 'http' in the url" do
+      it "is invalid without a 'https' in the url" do
         product3 = products(:product3)
         product3.photo_url = "www.com"
 
@@ -90,9 +90,9 @@ describe Product do
         # Assert
         expect(result).must_equal false
       end
-      it "is valid with a 'http' in the url" do
+      it "is valid with a 'https' in the url" do
         product3 = products(:product3)
-        product3.photo_url = "http://www.com"
+        product3.photo_url = "https://www.com"
 
         # Act
         result = product3.valid?
