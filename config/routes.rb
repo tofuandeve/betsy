@@ -18,8 +18,11 @@ Rails.application.routes.draw do
   post "/products/:id/addtocart", to: "order_items#create", as: "add_to_cart"
   patch "/products/:id/placeorder", to: "orders#place_order", as: "place_order"
 
-  resources :merchants, except: [:index, :edit, :update]
-  resources :products, except: [:destroy]
+  resources :merchants, except: [:index, :edit, :update] do 
+    resources :products, only: [:index]
+  end
+  
+  resources :products, except: [:destroy] 
   resources :order_items, except: [:show, :index]
   resources :orders
   

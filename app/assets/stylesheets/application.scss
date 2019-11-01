@@ -20,3 +20,12 @@
     nav {
       background-color: white;
    }
+
+   // Michaela and Eve: We added this to make the dropdown menu shorter
+   // and scrollable. It starts here:
+   .dropdown-menu {
+      max-height: 200px;
+      overflow-y: auto;
+      overflow-x: auto;
+   }
+   // and ends here in case there's merge conflict. 

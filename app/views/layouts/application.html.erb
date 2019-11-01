@@ -23,15 +23,28 @@
             <li class="nav-item">  
             <%= link_to "All Products", products_path, class: "nav-link" %>  
             </li>
+
+            
             <li>
               <div class="dropdown">
                 <%= link_to "Categories", "#", { "class": "nav-link dropdown-toggle", "role": "button", "id": "dropdownMenuLink", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false"}%>
                 <div class="dropdown-menu">
+                  <% if session[:merchant_id] %>
+                    <%= link_to "Add new category +", new_category_path, class: "dropdown-item"%>
+                  <%end%>
                   <%Category.all.each do |category|%>
                     <%= link_to category.name, category_products_path(category.id), class: "dropdown-item" %>
                   <%end%>
-                  <% if session[:merchant_id] %>
-                    <%= link_to "Add new category +", new_category_path, class: "dropdown-item"%>
+                </div>
+              </div>
+            </li>
+
+            <li>
+              <div class="dropdown">
+                <%= link_to "Merchants", "#", { "class": "nav-link dropdown-toggle", "role": "button", "id": "dropdownMenuLink", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false"}%>
+                <div class="dropdown-menu">
+                  <%Merchant.all.each do |merchant|%>
+                    <%= link_to merchant.username, merchant_products_path(merchant.id), class: "dropdown-item" %>
                   <%end%>
                 </div>
               </div>

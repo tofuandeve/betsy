@@ -2,6 +2,8 @@ class ProductsController < ApplicationController
   before_action :find_product, only: [:show, :edit, :update]
   
   def index
+    @products = Product.list_active
+
     if params[:category_id]
       @category = Category.find_by(id: params[:category_id])
       if @category.nil?
@@ -9,9 +11,15 @@ class ProductsController < ApplicationController
         redirect_to root_path
         return
       end
-      @products = Product.list_active.select {|product| product.categories.include?(@category)}
-    else
-      @products = Product.list_active
+      @products = @products.select  {|product| product.categories.include?(@category)}
+    elsif params[:merchant_id]
+      @merchant = Merchant.find_by(id: params[:merchant_id])
+      if @merchant.nil?
+        flash[:error] = "Invalid merchant!"
+        redirect_to root_path
+        return
+      end
+      @products = @products.select {|product| product.merchant == @merchant}
     end
   end
   
