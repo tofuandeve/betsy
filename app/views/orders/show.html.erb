@@ -17,6 +17,7 @@
       </thead>
 
       <tbody>
+        <% total = 0%>
         <% cart.order_items.each do |order_item| %>
         <tr>
           <td><%= link_to order_item.product.name, product_path(order_item.product.id) %></td>
@@ -30,6 +31,7 @@
             <%subtotal = order_item.product.price * order_item.quantity%>
             <%= subtotal %>
           </td>
+          <% total += subtotal%>
           <td><%= link_to "Remove item", order_item_path(order_item), method: :delete, data: { confirm: "Are you sure you want to remove #{order_item.product.name} from the cart?" }, class: "btn btn-outline-danger" %>
           </td>
         </tr>
@@ -39,10 +41,8 @@
 </section>
 
     <section>
-      <p>Subtotal: </p>
-      <p> Taxes:</p>
-      <p> Total:</p>
-      
+      <p>Total: <%=total%></p>
+
       <div>
         <%= link_to "Checkout", edit_order_path(cart.id), class: "btn btn-info" %>
       </div>
