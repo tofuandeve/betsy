@@ -34,11 +34,13 @@ class MerchantsController < ApplicationController
     if merchant
       flash[:status] = :success
       flash[:result_text] = "Successfully logged in as existing merchant #{merchant.username}"
+      session[:merchant_id] = merchant.id
     else
       merchant = Merchant.build_from_github(auth_hash)
       if merchant.save
         flash[:status] = :success
         flash[:result_text] = "Successfully created new merchant #{merchant.username} with ID #{merchant.id}"
+        session[:merchant_id] = merchant.id
       else
         flash.now[:status] = :failure
         flash.now[:result_text] = "Could not create new account"
@@ -47,7 +49,6 @@ class MerchantsController < ApplicationController
       end
     end
     
-    session[:merchant_id] = merchant.id
     redirect_to root_path
     return
   end
