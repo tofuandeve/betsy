@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
   before_action :find_product, only: [:show, :edit, :update, :retire]
-  before_action :merchant_nil?, only: [:new, :create, :edit, :update]
+  before_action :merchant_nil?, only: [:new, :create, :edit, :update, :retire]
   
   def index
     @products = Product.list_active
@@ -68,9 +68,22 @@ class ProductsController < ApplicationController
   end
   
   def retire
+    if @product.merchant_id != session[:merchant_id]
+      flash[:error] = "Error! You can only change the status of your own products."
+      redirect_to product_path(@product.id)
+      return
+    end
+    
     @product.toggle_retired
-    @product.save
+    if @product.save
+      flash[:success] = "Product retirement status was successfully updated"
+    else
+      flash[:error] = "Failed to update product status!"
+    end
+    redirect_to product_path(@product.id)
+    return
   end
+
   private
   
   def find_product

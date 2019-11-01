@@ -208,8 +208,38 @@ describe ProductsController do
     end
 
     describe "retire" do
-      it "logged in user can retired their product" do
-        # can't test now because there's no route for this action
+      before do
+        @product = Product.create(
+          name: "smashed pumpkin with face nibbles",
+          status: "active",
+          description: "work of art",
+          price: 50,
+          stock: 1,
+          photo_url: "http://imgur.com/pumpkinbits",
+          merchant_id: session[:merchant_id],
+        )
+      end
+
+      it "successfully retires a merchant's product and redirects when a logged in merchant retires their own product" do
+        expect _(@product.status).must_equal "active"
+        
+        patch retire_path(@product.id)
+
+        product = Product.find_by(id: @product.id)
+
+        expect _(product.status).must_equal "retired" 
+        must_redirect_to product_path(@product.id)
+      end
+
+      it "does not update a product's status and redirects to the home when a merchant tries to retire another merchant's product" do
+        expect _(valid_product3.status).must_equal "active"
+        
+        patch retire_path(valid_product3.id)
+
+        new_product = Product.find_by(id: valid_product3.id)
+
+        expect _(new_product.status).must_equal "active" 
+        must_redirect_to product_path(valid_product3.id)
       end
     end
   end
