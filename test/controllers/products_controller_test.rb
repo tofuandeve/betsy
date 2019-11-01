@@ -13,15 +13,27 @@ describe ProductsController do
         must_respond_with :success
       end
       
-      it "responds with success when directed to the index page with a valid category id" do
+      it "responds with success when directed to the products by category page with a valid category id" do
         category = categories(:Category1)
         get category_products_path(category.id)
         
         must_respond_with :success
       end
       
-      it "redirects to root path when directed to the index page with an invalid category id" do
+      it "redirects to root path when directed to the products by category page with an invalid category id" do
         get category_products_path(-1)
+        must_redirect_to root_path
+      end
+
+      it "responds with success when directed to the products by merchant page with a valid merchant id" do
+        merchant = merchants(:merchant1)
+        get merchant_products_path(merchant.id)
+        
+        must_respond_with :success
+      end
+      
+      it "redirects to root path when directed to the products by merchant page with an invalid merchant id" do
+        get merchant_products_path(-1)
         must_redirect_to root_path
       end
     end
