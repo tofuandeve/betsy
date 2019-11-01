@@ -29,12 +29,16 @@
     <% @all_orders.each do |order| %>
       <p class="card-title">Order Number:  <%= order.id %></p>
       <% order.order_items.each do |item| %>
-        <li class="card-text order-item">Name:  <%= Product.find_by(id: item.product_id).name %></li>
-        <li class="card-text order-item">Quantity:  <%= "#{item.quantity}" %></li>
-        <li class="card-text order-item">Subtotal:  </li>
+        <%if item.product.merchant == @merchant%>
+          <li class="card-text order-item">Name:  <%= Product.find_by(id: item.product_id).name %></li>
+          <li class="card-text order-item">Quantity:  <%= "#{item.quantity}" %></li>
+          <li class="card-text order-item">Subtotal:  <%= "#{item.item_subtotal}" %></li>
+        <%end%>
       <% end %>
+      
       <p><button type="button" class="btn btn-outline-primary btn-sm cancel-btn-style">Cancel Order</button></p>
     <% end %>
+    <p class="card-title">Total Revenue: <%= "#{@all_orders_revenue}" %> Eggshells</p>
   </div>
   </div>
 </ul>
@@ -44,12 +48,15 @@
     <% @pending_orders.each do |order| %>
       <p class="card-title">Order Number:  <%= order.id %></p>
       <% order.order_items.each do |item| %>
-        <li class="card-text order-item">Name:  <%= Product.find_by(id: item.product_id).name %></li>
-        <li class="card-text order-item">Quantity:  <%= "#{item.quantity}" %></li>
-        <li class="card-text order-item">Subtotal:  </li>
+        <%if item.product.merchant == @merchant%>
+          <li class="card-text order-item">Name:  <%= Product.find_by(id: item.product_id).name %></li>
+          <li class="card-text order-item">Quantity:  <%= "#{item.quantity}" %></li>
+          <li class="card-text order-item">Subtotal:  <%= "#{item.item_subtotal}" %></li>
+        <%end%>
       <% end %>
       <p><button type="button" class="btn btn-outline-primary btn-sm cancel-btn-style">Cancel Order</button></p>
     <% end %>
+    <p class="card-title">Total Revenue: <%= "#{@pending_orders_revenue}" %> Eggshells </p>
   </div>
 </ul>
 
@@ -58,12 +65,16 @@
     <% @paid_orders.each do |order| %>
       <p class="card-title">Order Number:  <%= order.id %></p>
       <% order.order_items.each do |item| %>
+        <%if item.product.merchant == @merchant%>
         <li class="card-text order-item">Name:  <%= Product.find_by(id: item.product_id).name %></li>
         <li class="card-text order-item">Quantity:  <%= "#{item.quantity}" %></li>
-        <li class="card-text order-item">Subtotal:  </li>
+        <li class="card-text order-item">Subtotal:  <%= "#{item.item_subtotal}" %></li>
+      <%end%>
       <% end %>
+      
       <p><button type="button" class="btn btn-outline-primary btn-sm cancel-btn-style">Cancel Order</button></p>
     <% end %>
+    <p class="card-title">Total Revenue: <%= "#{@paid_orders_revenue}" %> Eggshells </p>
   </div>
 </ul>
 
@@ -72,12 +83,15 @@
     <% @completed_orders.each do |order| %>
       <p class="card-title">Order Number:  <%= order.id %></p>
       <% order.order_items.each do |item| %>
+        <%if item.product.merchant == @merchant%>
         <li class="card-text order-item">Name:  <%= Product.find_by(id: item.product_id).name %></li>
         <li class="card-text order-item">Quantity:  <%= "#{item.quantity}" %></li>
-        <li class="card-text order-item">Subtotal:  </li>
+        <li class="card-text order-item">Subtotal:  <%= "#{item.item_subtotal}" %></li>
+      <%end%>
       <% end %>
       <p><button type="button" class="btn btn-outline-primary btn-sm cancel-btn-style">Cancel Order</button></p>
     <% end %>
+    <p class="card-title">Total Revenue: <%= "#{@completed_orders_revenue}" %> Eggshells </p>
   </div>
 </ul>
 
@@ -86,12 +100,15 @@
     <% @cancelled_orders.each do |order| %>
       <p class="card-title">Order Number:  <%= order.id %></p>
       <% order.order_items.each do |item| %>
-        <li class="card-text order-item">Name:  <%= Product.find_by(id: item.product_id).name %></li>
-        <li class="card-text order-item">Quantity:  <%= "#{item.quantity}" %></li>
-        <li class="card-text order-item">Subtotal:  </li>
+        <%if item.product.merchant == @merchant%>
+          <li class="card-text order-item">Name:  <%= Product.find_by(id: item.product_id).name %></li>
+          <li class="card-text order-item">Quantity:  <%= "#{item.quantity}" %></li>
+          <li class="card-text order-item">Subtotal:  <%= "#{item.item_subtotal}" %></li>
+        <%end%>
       <% end %>
       <p><button type="button" class="btn btn-outline-primary btn-sm cancel-btn-style">Cancel Order</button></p>
     <% end %>
+    <p class="card-title">Total Revenue: <%= "#{@cancelled_orders_revenue}" %> Eggshells </p>
   </div>
 </ul>
 
