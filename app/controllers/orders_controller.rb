@@ -57,8 +57,11 @@ class OrdersController < ApplicationController
   end
   
   def cancel
-    @order.change_status("cancelled")
-    @order.save
+    if session[:merchant_id]
+      @order.change_status("cancelled")
+      @order.save
+      redirect_to merchant_path(session[:merchant_id])
+    end
   end
   
   def destroy
@@ -81,15 +84,15 @@ class OrdersController < ApplicationController
     @four_digits = @order.buyer_card[-4..-1]
     @cc_exp = @order.card_expiration
   end
-
+  
   def confirmation
-
+    
     @quantities = []
     @subtotals = []
     @products = []
     
     @total_number_items = @order.order_items.length
-
+    
     @order.order_items.each do |item|
       @quantities << item.quantity
       @subtotals << item.item_subtotal
@@ -99,8 +102,8 @@ class OrdersController < ApplicationController
     @date_placed = @order.created_at
     @status = @order.status
   end
-
-
+  
+  
   private
   
   def order_params

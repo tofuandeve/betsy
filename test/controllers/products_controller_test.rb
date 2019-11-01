@@ -215,14 +215,14 @@ describe ProductsController do
           description: "work of art",
           price: 50,
           stock: 1,
-          photo_url: "http://imgur.com/pumpkinbits",
+          photo_url: "https://imgur.com/pumpkinbits",
           merchant_id: session[:merchant_id],
         )
       end
 
       it "successfully retires a merchant's product and redirects when a logged in merchant retires their own product" do
         expect _(@product.status).must_equal "active"
-        
+
         patch retire_path(@product.id)
 
         product = Product.find_by(id: @product.id)
