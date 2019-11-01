@@ -1,9 +1,10 @@
 class Product < ApplicationRecord
   belongs_to :merchant
-  has_many :order_items
+  has_many :order_items, dependent: :nullify
+  has_and_belongs_to_many :categories, dependent: :nullify
+  has_many :reviews, dependent: :nullify
+  
   validates :name, presence: true
-  has_and_belongs_to_many :categories
-  has_many :reviews
 
   def self.list_active
     return Product.where(status: "active")
