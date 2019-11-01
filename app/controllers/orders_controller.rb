@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  before_action :find_order, only: [:edit, :update, :confirmation, :buyer_info]
+  before_action :find_order, only: [:edit, :update, :cancel, :confirmation, :buyer_info]
   
   def new
     @order = Order.new
@@ -54,6 +54,11 @@ class OrdersController < ApplicationController
     
     redirect_to root_path
     return
+  end
+  
+  def cancel
+    @order.change_status("cancelled")
+    @order.save
   end
   
   def destroy

@@ -1,10 +1,10 @@
 class ProductsController < ApplicationController
-  before_action :find_product, only: [:show, :edit, :update]
+  before_action :find_product, only: [:show, :edit, :update, :retire]
   before_action :merchant_nil?, only: [:new, :create, :edit, :update]
-
+  
   def index
     @products = Product.list_active
-
+    
     if params[:category_id]
       @category = Category.find_by(id: params[:category_id])
       if @category.nil?
@@ -67,6 +67,10 @@ class ProductsController < ApplicationController
     end
   end
   
+  def retire
+    @product.toggle_retired
+    @product.save
+  end
   private
   
   def find_product
@@ -76,7 +80,7 @@ class ProductsController < ApplicationController
   def product_params
     return params.require(:product).permit(:name, :status, :description, :price, :stock, :photo_url, :merchant_id, category_ids: [])
   end
-
+  
   def merchant_nil?
     if session[:merchant_id] == nil
       flash[:error] = "You must be logged in"

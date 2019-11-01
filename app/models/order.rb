@@ -26,4 +26,8 @@ class Order < ApplicationRecord
     end
     return true
   end
+  
+  def change_status(status)
+    self.status = status
+  end
 end
